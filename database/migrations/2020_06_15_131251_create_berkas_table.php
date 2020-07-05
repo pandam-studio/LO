@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePengajuansTable extends Migration
+class CreateBerkasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,13 @@ class CreatePengajuansTable extends Migration
      */
     public function up()
     {
-        Schema::create('pengajuans', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::create('Berkas', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+
+            $table->id('Id_berkas')->autoIncrement();
+            $table->string('Nama_berkas');
+            $table->integer('Harga');
+            // $table->timestamps();
         });
     }
 
@@ -26,6 +30,6 @@ class CreatePengajuansTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pengajuans');
+        Schema::dropIfExists('berkas');
     }
 }

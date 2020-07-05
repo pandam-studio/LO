@@ -8,6 +8,13 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
+
+    public $timestamps = false;
+
+    protected $primaryKey = 'id_user';
+
+    public $table = 'User';
+
     use Notifiable;
 
     /**
@@ -16,7 +23,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'nik','nama', 'email', 'password'
     ];
 
     /**

@@ -25,4 +25,11 @@ class HomeController extends Controller
     {
         return view('home');
     }
+
+    public function status(){
+        return view('status');
+    }
+    public function laporan(){
+        return view('laporan');
+    }
 }

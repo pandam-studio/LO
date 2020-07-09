@@ -15,4 +15,14 @@ class Berkas_Pengajuan extends Model
     protected $fillable = [
         'Id_berkas','Jumlah_berkas'
     ];
+
+    public function Berkas()
+    {
+        return $this->hasMany('App\Berkas','Id_berkas');
+    }
+    public function Pengajuan()
+    {
+        return $this->belongsTo('App\Pengajuan', 'Id_berkaspengajuan');
+
+    }
 }

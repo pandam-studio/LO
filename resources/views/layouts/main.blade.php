@@ -28,7 +28,7 @@
         -------------------->
         <div class="menu-mobile menu-activated-on-click color-scheme-dark">
           <div class="mm-logo-buttons-w">
-            <a class="mm-logo" href="index.html"><img src="img/logo.png"><span>Teknik Ummgl</span></a>
+            <a class="mm-logo" href="index.html"><span>Teknik Ummgl</span></a>
             <div class="mm-buttons">
               <div class="content-panel-open">
                 <div class="os-icon os-icon-grid-circles"></div>
@@ -342,7 +342,7 @@
             </li>
 
             <li class="selected">
-            <a href="{{url('status')}}">
+            <a href="{{url('pengajuan')}}">
                   <div class="icon-w">
                     <div class="os-icon os-icon-layout"></div>
                   </div>
@@ -380,7 +380,7 @@
                     @csrf
                     <button type="submit" class="btn btn-outline-primary"><i class="os-icon os-icon-signs-11"></i><span>Logout</span></button>
                 </form>
-              
+
 
               </div>
               {{-- <div class="top-icon top-settings os-dropdown-trigger os-dropdown-position-left">
@@ -412,17 +412,17 @@
               -------------------->
               <div class="logged-user-w">
                 <div class="logged-user-i">
-                  <div class="avatar-w">
+                  {{-- <div class="avatar-w">
                     <img alt="" src="img/avatar1.jpg">
-                  </div>
+                  </div> --}}
                   <div class="logged-user-menu color-style-bright">
                     <div class="logged-user-avatar-info">
-                      <div class="avatar-w">
+                      {{-- <div class="avatar-w">
                         <img alt="" src="img/avatar1.jpg">
-                      </div>
+                      </div> --}}
                       <div class="logged-user-info-w">
                         <div class="logged-user-name">
-                          Maria Gomez
+                          {{Auth::user()->nama}}
                         </div>
                         <div class="logged-user-role">
                           Administrator
@@ -432,7 +432,7 @@
                     <div class="bg-icon">
                       <i class="os-icon os-icon-wallet-loaded"></i>
                     </div>
-                    <ul>
+                    {{-- <ul>
                       <li>
                         <a href="apps_email.html"><i class="os-icon os-icon-mail-01"></i><span>Incoming Mail</span></a>
                       </li>
@@ -448,7 +448,7 @@
                       <li>
                         <a href="#"><i class="os-icon os-icon-signs-11"></i><span>Logout</span></a>
                       </li>
-                    </ul>
+                    </ul> --}}
                   </div>
                 </div>
               </div>
@@ -475,7 +475,7 @@
           <div class="content-i">
             <div class="content-box">
             @yield('content')
-            
+
               <!--------------------
               START - Color Scheme Toggler
               -------------------->
@@ -981,6 +981,7 @@
     <script src="admin/bower_components/bootstrap/js/dist/popover.js"></script>
     <script src="admin/js/demo_customizer.js?version=4.4.0"></script>
     <script src="admin/js/main.js?version=4.4.0"></script>
+    @yield('script')
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

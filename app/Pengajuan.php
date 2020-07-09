@@ -14,5 +14,20 @@ class Pengajuan extends Model
     protected $fillable = [
         'Id_alumni','Id_status','Tgl_masuk','Tgl_keluar'
     ];
-    //
+
+    public function Alumni()
+    {
+        return $this->belongsTo('App\Alumni','Id_alumni');
+    }
+
+    public function Status()
+    {
+        return $this->hasOne('App\Status', 'Id_status');
+
+    }
+
+    public function Berkas_pengajuan()
+    {
+        return $this->hasMany('App\Berkas_Pengajuan', 'Id_berkaspengajuan');
+    }
 }

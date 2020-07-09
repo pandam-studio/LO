@@ -5,117 +5,59 @@
     <div class="col-sm-12">
       <div class="element-wrapper">
         <div class="element-box">
-          <form id="formValidate">
+        <form id="formValidate" action="{{url('save/alumn i')}}">
+              @csrf
             <h5 class="form-header">
-              Form Validation
+              Input data
             </h5>
-            <div class="form-desc">
-              Validation of the form is made possible using powerful validator plugin for bootstrap. <a href="http://1000hz.github.io/bootstrap-validator/" target="_blank">Learn more about Bootstrap Validator</a>
-            </div>
-            <div class="form-group">
-              <label for=""> Email address</label><input class="form-control" data-error="Your email address is invalid" placeholder="Enter email" required="required" type="email">
-              <div class="help-block form-text with-errors form-control-feedback"></div>
-            </div>
-            <div class="row">
-              <div class="col-sm-6">
-                <div class="form-group">
-                  <label for=""> Password</label><input class="form-control" data-minlength="6" placeholder="Password" required="required" type="password">
-                  <div class="help-block form-text text-muted form-control-feedback">
-                    Minimum of 6 characters
-                  </div>
-                </div>
-              </div>
-              <div class="col-sm-6">
-                <div class="form-group">
-                  <label for="">Confirm Password</label><input class="form-control" data-match-error="Passwords don&#39;t match" placeholder="Confirm Password" required="required" type="password">
-                  <div class="help-block form-text with-errors form-control-feedback"></div>
-                </div>
-              </div>
-            </div>
-            <div class="form-group">
-              <label for=""> Regular select</label><select class="form-control">
-                <option value="New York">
-                  New York
-                </option>
-                <option value="California">
-                  California
-                </option>
-                <option value="Boston">
-                  Boston
-                </option>
-                <option value="Texas">
-                  Texas
-                </option>
-                <option value="Colorado">
-                  Colorado
-                </option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for=""> Multiselect</label><select class="form-control select2" multiple="true">
-                <option selected="true">
-                  New York
-                </option>
-                <option selected="true">
-                  California
-                </option>
-                <option>
-                  Boston
-                </option>
-                <option>
-                  Texas
-                </option>
-                <option>
-                  Colorado
-                </option>
-              </select>
+            <div class="form-desc" id="time">
             </div>
             <fieldset class="form-group">
-              <legend><span>Section Example</span></legend>
-              <div class="row">
+              <legend><span>Data Alumni</span></legend>
+              <div class="row justify-content-center">
                 <div class="col-sm-6">
-                  <div class="form-group">
-                    <label for=""> First Name</label><input class="form-control" data-error="Please input your First Name" placeholder="First Name" required="required" type="text">
-                    <div class="help-block form-text with-errors form-control-feedback"></div>
-                  </div>
-                </div>
-                <div class="col-sm-6">
-                  <div class="form-group">
-                    <label for="">Last Name</label><input class="form-control" data-error="Please input your Last Name" placeholder="Last Name" required="required" type="text">
-                    <div class="help-block form-text with-errors form-control-feedback"></div>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-sm-6">
-                  <div class="form-group">
-                    <label for=""> Date of Birth</label><input class="single-daterange form-control" placeholder="Date of birth" type="text" value="04/12/1978">
-                  </div>
-                </div>
-                <div class="col-sm-6">
-                  <div class="form-group">
-                    <label for="">Twitter Username</label>
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <div class="input-group-text">
-                          @
-                        </div>
-                      </div>
-                      <input class="form-control" placeholder="Twitter Username" type="text">
+                  <div class="form-group row">
+                    <label for="noalumni" class="col-sm-4 col-form-label">Nomor Alumni</label>
+                    <div class="col-sm-8">
+                      <input type="text" class="form-control" id="noalumni" name="noalumni" placeholder="Nomor Alumni">
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="form-group">
-                <label for="">Date Range Picker</label><input class="multi-daterange form-control" type="text" value="03/31/2017 - 04/06/2017">
+              <div class="row justify-content-center">
+                <div class="col-sm-6">
+                  <div class="form-group row">
+                    <label for="nama" class="col-sm-4 col-form-label">Nama</label>
+                    <div class="col-sm-8">
+                      <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama">
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div class="form-group">
-                <label> Example textarea</label><textarea class="form-control" rows="3"></textarea>
+              <div class="row justify-content-center">
+                <div class="col-sm-6">
+                  <div class="form-group row">
+                    <label for="email" class="col-sm-4 col-form-label">Email</label>
+                    <div class="col-sm-8">
+                      <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+                    </div>
+                  </div>
+                </div>
               </div>
+              <legend><span>Berkas</span></legend>
+              @foreach ($berkas as $b)
+                <div class="row justify-content-center">
+                  <div class="col-sm-6">
+                    <div class="form-group row">
+                      <label for="{{str_replace(' ','',$b->Nama_berkas)}}" class="col-sm-4 col-form-label">{{$b->Nama_berkas}}</label>
+                      <div class="col-sm-8">
+                        <input type="number" class="form-control" id="{{str_replace(' ','',$b->Nama_berkas)}}" nama="{{str_replace(' ','',$b->Nama_berkas)}}" placeholder="{{$b->Nama_berkas}}">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              @endforeach
             </fieldset>
-            <div class="form-check">
-              <label class="form-check-label"><input class="form-check-input" type="checkbox">I agree to terms and conditions</label>
-            </div>
             <div class="form-buttons-w">
               <button class="btn btn-primary" type="submit"> Submit</button>
             </div>
@@ -124,4 +66,15 @@
       </div>
     </div>
   </div>
+@endsection
+@section('script')
+            <Script>
+                function set(){
+                    let d = new Date();
+                     document.getElementById("time").innerHTML= d.toLocaleString();
+                     }
+                 setInterval(set,1000);
+
+
+            </Script>
 @endsection

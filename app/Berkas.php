@@ -14,4 +14,9 @@ class Berkas extends Model
     protected $fillable = [
         'Nama_berkas','Harga'
     ];
+
+    public function Berkas_Pengajuan()
+    {
+        return $this->belongsTo('App\Berkas_Pengajuan','Id_berkas');
+    }
 }

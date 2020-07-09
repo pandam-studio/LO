@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\alumni as Status;
+use App\Alumni as Pengajuan;
+use App\Berkas;
 class HomeController extends Controller
 {
     /**
@@ -23,12 +24,14 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $berkas = berkas::all();
+        return view('home',['berkas'=>$berkas]);
     }
 
-    public function status(){
-        $status = Status::all();
-        return view('status',['status'=>$status]);
+    public function pengajuan(){
+        $pengajuan = pengajuan::paginate(10);
+
+        return view('pengajuan',['pengajuan'=>$pengajuan]);
     }
     public function laporan(){
         return view('laporan');

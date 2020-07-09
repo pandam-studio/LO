@@ -14,5 +14,8 @@ class Status extends Model
     protected $fillable = [
         'Keterangan','urutan'
     ];
-    //
+    public function Pengajuan()
+    {
+        return $this->belongsTo('App\Pengajuan', 'Id_status');
+    }
 }

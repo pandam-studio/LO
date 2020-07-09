@@ -14,4 +14,9 @@ class Alumni extends Model
     protected $fillable = [
         'No_alumni','Nama','Email'
     ];
+
+    public function Pengajuan()
+    {
+        return $this->hasOne('App\Pengajuan','Id_alumni');
+    }
 }

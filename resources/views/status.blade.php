@@ -6,11 +6,19 @@
       <div class="element-wrapper">
         <h6 class="element-header">
           Recent Orders
+
+          @dump($status)
+
+          @foreach ($status as $item)
+            {{ $item }}
+          @endforeach
         </h6>
         <div class="element-box-tp">
           <!--------------------
           START - Controls Above Table
           -------------------->
+
+
           <div class="controls-above-table">
             <div class="row">
               <div class="col-sm-6">

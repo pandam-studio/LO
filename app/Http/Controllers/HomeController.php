@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\alumni as Status;
 class HomeController extends Controller
 {
     /**
@@ -27,7 +27,8 @@ class HomeController extends Controller
     }
 
     public function status(){
-        return view('status');
+        $status = Status::all();
+        return view('status',['status'=>$status]);
     }
     public function laporan(){
         return view('laporan');

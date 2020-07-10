@@ -26,8 +26,20 @@ class Pengajuan extends Model
 
     }
 
-    public function Berkas_pengajuan()
+    public function Berkas_Pengajuan()
     {
-        return $this->hasMany('App\Berkas_Pengajuan', 'Id_berkaspengajuan');
+        return $this->hasMany('App\Berkas_Pengajuan', 'Id_pengajuan');
+    }
+
+    public function ThroughBerkas()
+    {
+        return $this->hasManyThrough(
+            'App\Berkas',
+            'App\Berkas_Pengajuan',
+            'Id_pengajuan', // Foreign key on cars table...
+            'Id_berkas', // Foreign key on owners table...
+            'Id_pengajuan', // Local key on mechanics table...
+            'Id_berkaspengajuan' // Local key on cars table...
+        );
     }
 }

@@ -76,24 +76,32 @@
                 $start = ($pengajuan->perPage() * $pengajuan->currentPage()) - ($pengajuan->perPage()-1)
                 @endphp
                 @foreach ($pengajuan as $item)
-                <tr>
-                  <td class="text-center">
+                <tr class="text-center">
+                  <td >
                     {{ $start++ }}
                   </td>
-                  <td>
-                    {{ $item->No_alumni }}
+                  <td >
+                    {{ $item->Alumni->No_alumni }}
                   </td>
-                  <td>
-                    {{ $item->Nama }}
+                  <td >
+                    {{ $item->Alumni->Nama }}
                   </td>
-                  <td class="text-right">
-                    {{ $item->Email }}
+                  <td >
+                    @foreach ($item->Berkas_Pengajuan as $i)
+                        @if ($i->Id_berkas==1)
+                            {{$i->Jumlah_berkas}}
+                        @endif
+                      @endforeach
                   </td>
-                  <td>
-                    Organic
+                  <td >
+                      @foreach ($item->Berkas_Pengajuan as $i)
+                        @if ($i->Id_berkas==2)
+                            {{$i->Jumlah_berkas}}
+                        @endif
+                      @endforeach
                   </td>
-                  <td class="text-center">
-                    <div class="status-pill green" data-title="Complete" data-toggle="tooltip"></div>
+                  <td >
+                    {{$item->Status->Keterangan}}
                   </td>
                   <td class="row-actions">
                     <a href="#"><i class="os-icon os-icon-ui-49"></i></a><a href="#"><i class="os-icon os-icon-grid-10"></i></a><a class="danger" href="#"><i class="os-icon os-icon-ui-15"></i></a>

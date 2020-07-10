@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Alumni as Pengajuan;
+use App\Pengajuan;
 use App\Berkas;
+use App\Berkas_Pengajuan;
 class HomeController extends Controller
 {
     /**
@@ -29,8 +30,7 @@ class HomeController extends Controller
     }
 
     public function pengajuan(){
-        $pengajuan = pengajuan::paginate(10);
-
+        $pengajuan = pengajuan::with(['Alumni','Status','Berkas_Pengajuan'])->paginate(10);
         return view('pengajuan',['pengajuan'=>$pengajuan]);
     }
     public function laporan(){

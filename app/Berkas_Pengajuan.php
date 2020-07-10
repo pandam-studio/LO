@@ -22,7 +22,7 @@ class Berkas_Pengajuan extends Model
     }
     public function Pengajuan()
     {
-        return $this->belongsTo('App\Pengajuan', 'Id_berkaspengajuan');
+        return $this->belongsTo('App\Pengajuan', 'Id_pengajuan');
 
     }
 }

@@ -5,7 +5,7 @@
     <div class="col-sm-12">
       <div class="element-wrapper">
         <div class="element-box">
-        <form id="formValidate" action="{{url('save/alumn i')}}">
+        <form id="formValidate" action="{{url('pengajuan/store')}}" method="POST">
               @csrf
             <h5 class="form-header">
               Input data
@@ -19,17 +19,24 @@
                   <div class="form-group row">
                     <label for="noalumni" class="col-sm-4 col-form-label">Nomor Alumni</label>
                     <div class="col-sm-8">
-                      <input type="text" class="form-control" id="noalumni" name="noalumni" placeholder="Nomor Alumni">
+                      <input type="text" class="form-control @error('noalumni') is-invalid @enderror" id="noalumni" name="noalumni" placeholder="Nomor Alumni" value="{{ old('noalumni') }}">
+                        @error('noalumni')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
                     </div>
                   </div>
                 </div>
+
               </div>
               <div class="row justify-content-center">
                 <div class="col-sm-6">
                   <div class="form-group row">
                     <label for="nama" class="col-sm-4 col-form-label">Nama</label>
                     <div class="col-sm-8">
-                      <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama">
+                      <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" name="nama" placeholder="Nama" value="{{ old('nama') }}">
+                      @error('nama')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
                     </div>
                   </div>
                 </div>
@@ -39,11 +46,15 @@
                   <div class="form-group row">
                     <label for="email" class="col-sm-4 col-form-label">Email</label>
                     <div class="col-sm-8">
-                      <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+                      <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" placeholder="Email"  value="{{ old('email') }}">
+                        @error('email')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                        @enderror
                     </div>
                   </div>
                 </div>
               </div>
+
               <legend><span>Berkas</span></legend>
               @foreach ($berkas as $b)
                 <div class="row justify-content-center">
@@ -73,8 +84,21 @@
                     let d = new Date();
                      document.getElementById("time").innerHTML= d.toLocaleString();
                      }
-                 setInterval(set,1000);
+                setInterval(set,1000);
 
-
+                $('#noalumni').keyup(function(){
+                    // console.log($(this).val());
+                    let url = "<?= url('/pengajuan/cekAlumni')?>";
+                    $.post(url, {
+                    no_alumni : $('#noalumni').val(),
+                    },
+                    function (data) {
+                        if(data.status==200){
+                            $('#nama').val(data.nama);
+                        $('#email').val(data.email);
+                        }
+                    },
+                    "json");
+                    });
             </Script>
 @endsection

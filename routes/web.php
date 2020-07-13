@@ -18,6 +18,8 @@ Route::get('/', 'Monitoring@index');
 Route::get('/home', 'HomeController@index');
 Route::get('/laporan', 'HomeController@laporan');
 Route::get('/pengajuan', 'HomeController@pengajuan')->name('home');
+Route::post('/pengajuan/cekAlumni', 'HomeController@cekAlumni');
+Route::post('/pengajuan/store', 'HomeController@store')->name('store');
 
 Auth::routes();
 

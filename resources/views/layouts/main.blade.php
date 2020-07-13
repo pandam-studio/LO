@@ -8,7 +8,7 @@
     <meta content="Tamerlan Soziev" name="author">
     <meta content="Admin dashboard html template" name="description">
     <meta content="width=device-width, initial-scale=1" name="viewport">
-    <link href="favicon.png" rel="shortcut icon">
+    {{-- <link href="favicon.png" rel="shortcut icon"> --}}
     <link href="apple-touch-icon.png" rel="apple-touch-icon">
     <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500" rel="stylesheet" type="text/css">
     <link href="admin/bower_components/select2/dist/css/select2.min.css" rel="stylesheet">
@@ -19,6 +19,8 @@
     <link href="admin/bower_components/perfect-scrollbar/css/perfect-scrollbar.min.css" rel="stylesheet">
     <link href="admin/bower_components/slick-carousel/slick/slick.css" rel="stylesheet">
     <link href="admin/css/main.css?version=4.4.0" rel="stylesheet">
+    <script src="admin/bower_components/jquery/dist/jquery.min.js"></script>
+
   </head>
   <body class="menu-position-side menu-side-left full-screen with-content-panel">
     <div class="all-wrapper with-side-panel solid-bg-all">

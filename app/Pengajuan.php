@@ -12,7 +12,7 @@ class Pengajuan extends Model
     protected $primaryKey = 'Id_pengajuan';
 
     protected $fillable = [
-        'Id_alumni','Id_status','Tgl_masuk','Tgl_keluar'
+        'Id_alumni','Id_status','Tgl_masuk','Tgl_keluar','code'
     ];
 
     public function Alumni()

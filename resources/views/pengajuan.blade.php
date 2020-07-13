@@ -6,7 +6,6 @@
       <div class="element-wrapper">
         <h6 class="element-header">
           Recent Orders
-          @dump($pengajuan)
         </h6>
         <div class="element-box-tp">
           <!--------------------
@@ -81,27 +80,29 @@
                     {{ $start++ }}
                   </td>
                   <td >
-                    {{ $item->Alumni->No_alumni }}
+                    {{-- {{ $item->Alumni->No_alumni }} --}}
+                    {{ $item->No_alumni }}
                   </td>
                   <td >
-                    {{ $item->Alumni->Nama }}
+                    {{-- {{ $item->Alumni->Nama }} --}}
+                    {{ $item->Nama }}
                   </td>
                   <td >
-                    @foreach ($item->Berkas_Pengajuan as $i)
+                    {{-- @foreach ($item->Berkas_Pengajuan as $i)
                         @if ($i->Id_berkas==1)
                             {{$i->Jumlah_berkas}}
                         @endif
-                      @endforeach
+                      @endforeach --}}
                   </td>
                   <td >
-                      @foreach ($item->Berkas_Pengajuan as $i)
+                      {{-- @foreach ($item->Berkas_Pengajuan as $i)
                         @if ($i->Id_berkas==2)
                             {{$i->Jumlah_berkas}}
                         @endif
-                      @endforeach
+                      @endforeach --}}
                   </td>
                   <td >
-                    {{$item->Status->Keterangan}}
+                    {{-- {{$item->Status->Keterangan}} --}}
                   </td>
                   <td class="row-actions">
                     <a href="#"><i class="os-icon os-icon-ui-49"></i></a><a href="#"><i class="os-icon os-icon-grid-10"></i></a><a class="danger" href="#"><i class="os-icon os-icon-ui-15"></i></a>

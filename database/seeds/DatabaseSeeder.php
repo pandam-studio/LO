@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-
+use App\User;
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -13,7 +13,14 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(alumni::class);
         $this->call(berkas::class);
+        $this->call(statusSeeder::class);
 
+        User::create([
+            'nik'=>'220696',
+            'nama'=>'versta',
+            'email'=>'versta@ummgl.ac.id',
+            'password'=> Hash::make('qweasd')
+        ]);
         // $this->call(UserSeeder::class);
     }
 }

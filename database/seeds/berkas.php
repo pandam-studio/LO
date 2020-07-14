@@ -15,7 +15,7 @@ class berkas extends Seeder
 
         b::create([
             'Id_berkas' => '1',
-            'Nama_berkas' =>'ijazah',
+            'Nama_berkas' =>'Ijazah',
             'Harga' => '1000'
             ]);
 

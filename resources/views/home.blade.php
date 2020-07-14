@@ -12,6 +12,9 @@
             </h5>
             <div class="form-desc" id="time">
             </div>
+            @error('msg')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
             <fieldset class="form-group">
               <legend><span>Data Alumni</span></legend>
               <div class="row justify-content-center">
@@ -62,7 +65,7 @@
                     <div class="form-group row">
                       <label for="{{str_replace(' ','',$b->Nama_berkas)}}" class="col-sm-4 col-form-label">{{$b->Nama_berkas}}</label>
                       <div class="col-sm-8">
-                        <input type="number" class="form-control" id="{{str_replace(' ','',$b->Nama_berkas)}}" nama="{{str_replace(' ','',$b->Nama_berkas)}}" placeholder="{{$b->Nama_berkas}}">
+                        <input type="number" class="form-control" id="{{str_replace(' ','',$b->Nama_berkas)}}" name="{{str_replace(' ','',$b->Nama_berkas)}}" placeholder="{{$b->Nama_berkas}}">
                       </div>
                     </div>
                   </div>

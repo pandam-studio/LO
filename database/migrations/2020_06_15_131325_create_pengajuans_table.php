@@ -18,12 +18,12 @@ class CreatePengajuansTable extends Migration
 
             $table->id('Id_pengajuan')->autoIncrement();
             $table->unsignedBigInteger('Id_alumni');
-            $table->string('code');
             $table->foreign('Id_alumni')->references('Id_alumni')->on('Alumni');
             $table->unsignedBigInteger('Id_status');
             $table->foreign('Id_status')->references('Id_status')->on('status');
             $table->date('Tgl_masuk')->nullable();
             $table->date('Tgl_keluar')->nullable();
+            $table->string('Code')->unique();
 
             // $table->timestamps();
         });

@@ -5,14 +5,13 @@
     <div class="col-sm-12">
       <div class="element-wrapper">
         <h6 class="element-header">
-          Recent Orders
+          Kelola Status
         </h6>
+
         <div class="element-box-tp">
           <!--------------------
           START - Controls Above Table
           -------------------->
-
-
           <div class="controls-above-table">
             <div class="row">
               <div class="col-sm-6">
@@ -51,16 +50,13 @@
                     No
                   </th>
                   <th>
+                    Code Pengajuan
+                  </th>
+                  <th>
                     No Alumni
                   </th>
                   <th>
                     Nama
-                  </th>
-                  <th>
-                    Ijazah
-                  </th>
-                  <th>
-                    Transkrip
                   </th>
                   <th>
                     Status
@@ -80,29 +76,16 @@
                     {{ $start++ }}
                   </td>
                   <td >
-                    {{-- {{ $item->Alumni->No_alumni }} --}}
-                    {{ $item->No_alumni }}
+                    {{ $item->Code }}
                   </td>
                   <td >
-                    {{-- {{ $item->Alumni->Nama }} --}}
-                    {{ $item->Nama }}
+                    {{ $item->Alumni->No_alumni }}
                   </td>
                   <td >
-                    {{-- @foreach ($item->Berkas_Pengajuan as $i)
-                        @if ($i->Id_berkas==1)
-                            {{$i->Jumlah_berkas}}
-                        @endif
-                      @endforeach --}}
+                    {{ $item->Alumni->Nama }}
                   </td>
                   <td >
-                      {{-- @foreach ($item->Berkas_Pengajuan as $i)
-                        @if ($i->Id_berkas==2)
-                            {{$i->Jumlah_berkas}}
-                        @endif
-                      @endforeach --}}
-                  </td>
-                  <td >
-                    {{-- {{$item->Status->Keterangan}} --}}
+                    {{$item->Status->Keterangan}}
                   </td>
                   <td class="row-actions">
                     <a href="#"><i class="os-icon os-icon-ui-49"></i></a><a href="#"><i class="os-icon os-icon-grid-10"></i></a><a class="danger" href="#"><i class="os-icon os-icon-ui-15"></i></a>

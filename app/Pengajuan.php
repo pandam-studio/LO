@@ -12,7 +12,7 @@ class Pengajuan extends Model
     protected $primaryKey = 'Id_pengajuan';
 
     protected $fillable = [
-        'Id_alumni','Id_status','Tgl_masuk','Tgl_keluar','code'
+        'Id_alumni','Id_status','Tgl_masuk','Tgl_keluar','Code'
     ];
 
     public function Alumni()
@@ -22,7 +22,7 @@ class Pengajuan extends Model
 
     public function Status()
     {
-        return $this->hasOne('App\Status', 'Id_status');
+        return $this->belongsTo('App\Status', 'Id_status');
 
     }
 

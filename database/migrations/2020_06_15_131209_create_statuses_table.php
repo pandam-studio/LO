@@ -18,7 +18,7 @@ class CreateStatusesTable extends Migration
 
             $table->id('Id_status')->autoIncrement();
             $table->string('Keterangan');
-            $table->integer('urutan');
+            $table->integer('Urutan');
             // $table->timestamps();
         });
     }

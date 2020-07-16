@@ -20,6 +20,7 @@
     <link href="admin/bower_components/slick-carousel/slick/slick.css" rel="stylesheet">
     <link href="admin/css/main.css?version=4.4.0" rel="stylesheet">
     <script src="admin/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
   </head>
   <body class="menu-position-side menu-side-left full-screen with-content-panel">

@@ -46,24 +46,12 @@
             <table class="table table-bordered table-lg table-v2 table-striped">
               <thead>
                 <tr>
-                  <th class="text-center">
-                    No
-                  </th>
-                  <th>
-                    Code Pengajuan
-                  </th>
-                  <th>
-                    No Alumni
-                  </th>
-                  <th>
-                    Nama
-                  </th>
-                  <th>
-                    Status
-                  </th>
-                  <th>
-                    Aksi
-                  </th>
+                  <th class="text-center">No</th>
+                    <th>Code Pengajuan</th>
+                    <th>No Alumni</th>
+                    <th>Nama</th>
+                    <th>Status</th>
+                    <th>Aksi</th>
                 </tr>
               </thead>
               <tbody>
@@ -72,23 +60,15 @@
                 @endphp
                 @foreach ($pengajuan as $item)
                 <tr class="text-center">
-                  <td >
-                    {{ $start++ }}
-                  </td>
-                  <td >
-                    {{ $item->Code }}
-                  </td>
-                  <td >
-                    {{ $item->Alumni->No_alumni }}
-                  </td>
-                  <td >
-                    {{ $item->Alumni->Nama }}
-                  </td>
-                  <td >
-                    {{$item->Status->Keterangan}}
-                  </td>
+                  <td >{{ $start++ }}</td>
+                  <td >{{ $item->Code }}</td>
+                  <td >{{ $item->Alumni->No_alumni }}</td>
+                  <td >{{ $item->Alumni->Nama }}</td>
+                  <td>{{$item->Status->Keterangan}}</td>
                   <td class="row-actions">
-                    <a href="#"><i class="os-icon os-icon-ui-49"></i></a><a href="#"><i class="os-icon os-icon-grid-10"></i></a><a class="danger" href="#"><i class="os-icon os-icon-ui-15"></i></a>
+                    <a class="detail" data-id="{{$item->Id_pengajuan}}" href="#"><i class="os-icon os-icon-ui-49"></i></a>
+                    <a class="update" data-id="{{$item->Id_pengajuan}}" href="#" ><i class="os-icon os-icon-grid-10"></i></a>
+                    <a class="danger" data-id="{{$item->Id_pengajuan}}" href="#"><i class="os-icon os-icon-ui-15"></i></a>
                   </td>
                 </tr>
                 @endforeach
@@ -115,4 +95,59 @@
       </div>
     </div>
   </div>
+
+  <!-- Modal -->
+    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+            ...
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+        </div>
+    </div>
+
+@endsection
+@section('script')
+<script>
+    $('.danger').click(function (e) {
+        e.preventDefault();
+        let id = $(this).data("id");
+        var url ="{{url('pengajuan/delete')}}"+"/"+id;
+        swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this data",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+            })
+            .then((willDelete) => {
+            if (willDelete) {
+                swal("Poof! Your data has been deleted!", {
+                icon: "success",
+                }).then((value)=>{
+                    return fetch(url);
+                });
+            } else {
+                swal("Your data is safe!");
+            }
+            });
+    });
+
+    $('.detail').click(function (e) {
+        e.preventDefault();
+        $('#modal').modal('show');
+
+    });
+</script>
 @endsection

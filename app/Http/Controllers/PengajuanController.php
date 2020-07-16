@@ -15,6 +15,20 @@ use App\Status;
 
 class PengajuanController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    //tampilan daftar pengajuan
+    public function index(){
+        $pengajuan = pengajuan::with(['Alumni','Status'])->
+        orderBy('Id_pengajuan','desc')->paginate(10);
+        $status = status::orderBy('Urutan','ASC')->get();
+        return view('pengajuan',['pengajuan'=>$pengajuan,'status'=>$status]);
+    }
+
+
     public function store(Request $request)
     {
         $request->validate([
@@ -75,5 +89,31 @@ class PengajuanController extends Controller
         }else{
             return redirect()->route('home');
         }
+    }
+
+    public function delete($id){
+        DB::delete('delete from pengajuan where Id_pengajuan = ?', [$id]);
+    }
+
+    public function getDetail(Request $req)
+    {
+        $idPeng = $req->Id_pengajuan;
+        $data= DB::select("SELECT berkas.*,pengajuan.*,berkas_pengajuan.* FROM pengajuan LEFT JOIN
+                berkas_pengajuan ON pengajuan.Id_pengajuan=berkas_pengajuan.Id_pengajuan
+                LEFT JOIN berkas ON berkas_pengajuan.Id_berkas=berkas.Id_berkas
+                WHERE pengajuan.Id_pengajuan=$idPeng");
+            return response()->json($data, 200);
+    }
+
+    public function updateStatus(Request $r)
+    {
+        $status = $r->status;
+        $idPeng = $r->idPeng;
+
+       if(DB::update('update pengajuan set Id_status = ? where Id_pengajuan = ?', [$status,$idPeng])){
+        return response()->json(['success'=>true], 200);
+       }else{
+        return response()->json([], 200);
+       }
     }
 }

@@ -37,12 +37,7 @@ class HomeController extends Controller
         return view('home',['berkas'=>$berkas]);
     }
 
-    //tampilan daftar pengajuan
-    public function pengajuan(){
-        $pengajuan = pengajuan::with(['Alumni','Status'])->
-        orderBy('Id_pengajuan','desc')->paginate(10);
-        return view('pengajuan',['pengajuan'=>$pengajuan]);
-    }
+
 
     public function laporan(){
         return view('laporan');

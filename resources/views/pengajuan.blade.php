@@ -15,7 +15,6 @@
           <div class="controls-above-table">
             <div class="row">
               <div class="col-sm-6">
-                <a class="btn btn-sm btn-secondary" href="#">Download CSV</a><a class="btn btn-sm btn-secondary" href="#">Archive</a><a class="btn btn-sm btn-danger" href="#">Delete</a>
               </div>
               <div class="col-sm-6">
                 <form class="form-inline justify-content-sm-end">
@@ -66,8 +65,11 @@
                   <td >{{ $item->Alumni->Nama }}</td>
                   <td>{{$item->Status->Keterangan}}</td>
                   <td class="row-actions">
-                    <a class="detail" data-id="{{$item->Id_pengajuan}}" href="#"><i class="os-icon os-icon-ui-49"></i></a>
-                    <a class="update" data-id="{{$item->Id_pengajuan}}" href="#" ><i class="os-icon os-icon-grid-10"></i></a>
+                    <a class="detail" data-id="{{$item->Id_pengajuan}}"
+                        data-nama="{{$item->alumni->Nama}}"
+                        data-email="{{$item->alumni->Email}}"
+                        data-status="{{$item->Id_status}}" href="#"><i class="os-icon os-icon-ui-49"></i></a>
+                    {{-- <a class="update" data-id="{{$item->Id_pengajuan}}" href="#" ><i class="os-icon os-icon-grid-10"></i></a> --}}
                     <a class="danger" data-id="{{$item->Id_pengajuan}}" href="#"><i class="os-icon os-icon-ui-15"></i></a>
                   </td>
                 </tr>
@@ -101,22 +103,51 @@
         <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Pengajuan </h5>
+
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
             </div>
             <div class="modal-body">
-            ...
+                <form>
+                    <input type="hidden" id="hidden">
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Nama</label>
+                        <div class="col-sm-10">
+                            <label class="col-sm-2 col-form-label" id="Nama"></label>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Email</label>
+                        <div class="col-sm-10">
+                            <label class="col-sm-2 col-form-label" id="Email"></label>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Status</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" id="Status" name="Status">
+                                @foreach($status as $s)
+                                    <option value="{{$s->Id_status}}">{{$s->Keterangan}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <hr>
+                    <div id="Detail">
+
+                    </div>
+                  </form>
             </div>
             <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
+            <button type="button" class="btn btn-primary" id="save">Save changes</button>
             </div>
         </div>
         </div>
     </div>
-
 @endsection
 @section('script')
 <script>
@@ -133,10 +164,11 @@
             })
             .then((willDelete) => {
             if (willDelete) {
+                fetch(url),
                 swal("Poof! Your data has been deleted!", {
                 icon: "success",
-                }).then((value)=>{
-                    return fetch(url);
+                }).then(()=>{
+                    location.reload()
                 });
             } else {
                 swal("Your data is safe!");
@@ -144,8 +176,57 @@
             });
     });
 
+    $('#save').click(function (e) {
+        e.preventDefault();
+        let Status = $('#Status').val();
+        let id=$('#hidden').val();
+        $.get("{{route('updateStatus')}}", {idPeng:id, status:Status},
+            function (data) {
+                if(data!=""){
+                    swal("Data saved!", "Status Updated!", "success").then(()=>{
+                        location.reload();
+                    });
+                }else{
+                    swal("Failed to save", "please try again!", "error");
+                }
+            },
+            "json"
+        );
+    });
+
     $('.detail').click(function (e) {
         e.preventDefault();
+        let id = $(this).data('id');
+        let email = $(this).data('email');
+        let nama = $(this).data('nama');
+        let status= $(this).data('status');
+        $('#Nama').html(nama);
+        $('#Email').html(email);
+        $('#Status').val(status);
+        $('#hidden').val(id);
+
+        $.getJSON("{{route('getDetail')}}",{Id_pengajuan:id},
+            function (data) {
+                let html = "";
+                let total =0;
+                data.forEach(e => {
+                    html +=
+                    `<div class="form-group row">
+                        <label class="col-sm-4 col-form-label">`+ e.Nama_berkas +`</label>
+                        <label class="col-sm-4 col-form-label">`+ e.Jumlah_berkas+` lembar</label>
+                        <label class="col-sm-4 col-form-label"> Rp. `+(e.Jumlah_berkas * e.Harga).toLocaleString('id-ID')+`</label>
+                    </div>`;
+                   total+=e.Jumlah_berkas * e.Harga;
+                });
+                html +=
+                `<hr>
+                <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">Total Pembayaran : </label>
+                        <label class="col-sm-4 col-form-label"> Rp. `+total.toLocaleString('id-ID'); +`</label>
+                    </div>`
+                $('#Detail').html(html);
+            }
+        );
         $('#modal').modal('show');
 
     });

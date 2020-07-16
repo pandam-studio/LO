@@ -18,7 +18,7 @@ class Berkas_Pengajuan extends Model
 
     public function Berkas()
     {
-        return $this->hasMany('App\Berkas','Id_berkas');
+        return $this->belongsTo('App\Berkas','Id_berkas');
     }
     public function Pengajuan()
     {

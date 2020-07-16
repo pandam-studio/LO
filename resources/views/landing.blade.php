@@ -14,6 +14,8 @@
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="landing/css/styles.css" rel="stylesheet" />
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
     </head>
     <body id="page-top">
         <!-- Navigation-->
@@ -50,10 +52,12 @@
                                             <div class="col-md-12 col-lg-10 mx-auto text-center">
                                                 <i class="fas fa-search fa-2x mb-2 text-dark"></i>
                                                 <h3>Tracking legalisir mu</h3>
-                                                <form class="form-inline d-flex">
-                                                    <input class="form-control flex-fill mr-0 mr-sm-2 mb-3 mb-sm-0" id="inputEmail" type="email" placeholder="Enter your unique code.." />
-                                                    <button class="btn btn-primary mx-auto mt-2" type="button">Cari</button>
-                                                </form>
+
+                                                <div class="form-group row" >
+                                                    <input class="form-control flex-fill mr-0 mr-sm-2 mb-3 mb-sm-0" id="code" type="text" placeholder="Enter your unique code.." />
+                                                    <button class="btn btn-primary mx-auto mt-2" type="button" id="btnCari">Cari</button>
+                                                </div>
+
                                             </div>
                                         </div>
                                 </div>
@@ -77,5 +81,32 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
         <!-- Core theme JS-->
         <script src="landing/js/scripts.js"></script>
+
+        <script>
+            $('#btnCari').click(function (e) {
+                e.preventDefault();
+                let code =$('#code').val();
+                if(code==''){
+                    return swal("Code is empty", "Please insert your code!", "error");
+                }
+
+                $.getJSON("{{ route('find')}}", {code:code},
+                    function (data) {
+                        if(data==""){
+                            swal("Invalid Code!", "Please recheck your code!", "error");
+                        }else{
+                            swal("Code Found!", "Status berkas kamu saat ini adalah ("+data.Keterangan+")", "success");
+                        }
+                        console.log(data);
+                    }
+                );
+            });
+
+            $('#code').keydown(function (e) {
+                if(event.keyCode === 13){
+                    return $('#btnCari').trigger("click");
+                }
+            });
+        </script>
     </body>
 </html>

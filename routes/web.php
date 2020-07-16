@@ -18,13 +18,12 @@ Route::get('/', 'Monitoring@index');
 
 Route::get('/home', 'HomeController@index');
 Route::get('/laporan', 'HomeController@laporan');
-Route::get('/pengajuan', 'HomeController@pengajuan')->name('home');
-Route::post('/pengajuan/cekAlumni', 'AlumniController@cekAlumni');
+Route::get('/pengajuan', 'PengajuanController@index')->name('home');
+Route::get('/pengajuan/cekAlumni', 'AlumniController@cekAlumni')->name('cekAlumni');
 Route::post('/pengajuan/store', 'PengajuanController@store')->name('store');
 Route::get('/response','PengajuanController@response')->name('response');
 
-Route::get('pengajuan/delete/{id}', function($id){
-    DB::delete('delete from pengajuan where Id_pengajuan = ?', [$id]);
-});
-
-
+Route::get('pengajuan/delete/{id}', 'PengajuanController@delete');
+Route::get('detail','PengajuanController@getDetail')->name('getDetail');
+Route::get('find','Monitoring@findCode')->name('find');
+Route::get('updateStatus','PengajuanController@updateStatus')->name('updateStatus');

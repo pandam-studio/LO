@@ -18,19 +18,11 @@
               </div>
               <div class="col-sm-6">
                 <form class="form-inline justify-content-sm-end">
-                  <input class="form-control form-control-sm rounded bright" placeholder="Search" type="text"><select class="form-control form-control-sm rounded bright">
-                    <option selected="selected" value="">
-                      Select Status
-                    </option>
-                    <option value="Pending">
-                      Pending
-                    </option>
-                    <option value="Active">
-                      Active
-                    </option>
-                    <option value="Cancelled">
-                      Cancelled
-                    </option>
+                  <input class="form-control form-control-sm rounded bright" placeholder="Search" type="text" name="search">
+                  <select class="form-control form-control-sm rounded bright">
+                    @foreach($status as $s)
+                        <option value="{{$s->Id_status}}">{{$s->Keterangan}}</option>
+                    @endforeach
                   </select>
                 </form>
               </div>

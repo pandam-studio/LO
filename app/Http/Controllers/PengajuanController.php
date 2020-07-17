@@ -6,13 +6,13 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use App\Jobs\SendMailJob;
 use Carbon\Carbon;
 use App\Pengajuan;
 use App\Berkas;
 use App\Berkas_Pengajuan;
 use App\Alumni;
 use App\Status;
-
 class PengajuanController extends Controller
 {
 
@@ -38,9 +38,11 @@ class PengajuanController extends Controller
         ]);
 
         $idPeng = 0;
+        $noAlumni = 0;
+        $code = "";
         $transaction =true;//success
         try{
-            DB::transaction(function() use($request,&$idPeng) {
+            DB::transaction(function() use($request,&$idPeng,&$noAlumni,&$code) {
                 $alumni = Alumni::updateOrCreate(
                     ['No_alumni'=> $request->noalumni],
                     ['Nama'=> $request->nama,
@@ -55,6 +57,8 @@ class PengajuanController extends Controller
                     ]);
 
                 $idPeng = $Pengajuan->Id_pengajuan;
+                $noAlumni= $alumni->No_alumni;
+                $code = $Pengajuan->Code;
 
                 $berkas = Berkas::all();
                     foreach ($berkas as $key => $value) {
@@ -71,8 +75,10 @@ class PengajuanController extends Controller
         }catch(Exception $e){
             $transaction= false;
         }
-
+        
         if($transaction){
+            $emailJob = (new SendMailJob($noAlumni,$code));
+            dispatch($emailJob);
             return redirect()->route('response',['id' => $idPeng]);
         }else{
             return redirect()->back()->withErrors(['msg','Failed To save']);
@@ -116,4 +122,5 @@ class PengajuanController extends Controller
         return response()->json([], 200);
        }
     }
+  
 }

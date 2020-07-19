@@ -18,10 +18,12 @@ class LOEmail extends Mailable
      */
     protected $Nama;
     protected $code;
-     public function __construct($NamaAlumni,$code)
+    protected $keterangan;
+     public function __construct($NamaAlumni,$code,$keterangan)
     {
         $this->Nama=$NamaAlumni;
         $this->code= $code;
+        $this->keterangan= $keterangan;
     }
 
     /**
@@ -31,16 +33,17 @@ class LOEmail extends Mailable
      */
     public function build()
     {
-        $code ='tes';
         $nama=$this->Nama;
         $code=$this->code;
-        return $this->from('pengirim@malasngoding.com')
+        $keterangan=$this->keterangan;
+        
+        return $this->from('Teknik@ummgl.ac.id')
                       ->view('email.notifyUser')
                       ->with(
                         [
                             'nama' => $nama,
-                            'code' => $code
-
+                            'code' => $code,
+                            'keterangan' => $keterangan
                         ])->subject('Permintaan legalisir');
     }
-}
+} 

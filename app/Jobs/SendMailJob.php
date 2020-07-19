@@ -23,10 +23,12 @@ class SendMailJob implements ShouldQueue
 
      protected $idAlumni;
      protected $code;
-    public function __construct($idAlumni,$code)
+     protected $keterangan;
+    public function __construct($idAlumni,$code,$keterangan)
     {
         $this->idAlumni = $idAlumni;
         $this->code = $code;
+        $this->keterangan = $keterangan;
     }
 
     /**
@@ -38,9 +40,10 @@ class SendMailJob implements ShouldQueue
     {
         $id =$this->idAlumni;
         $code =$this->code;
-        $alumni= Alumni::where('No_alumni',$id)->first();
+        $keterangan = $this->keterangan;
+        $alumni= Alumni::where('Id_alumni',$id)->first();
         // $alumni->Email
         Mail::to($alumni->Email)->
-        send(new LOEmail($alumni->Nama,$code));
+        send(new LOEmail($alumni->Nama,$code,$keterangan));
     }
 }

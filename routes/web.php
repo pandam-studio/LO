@@ -27,3 +27,4 @@ Route::get('pengajuan/delete/{id}', 'PengajuanController@delete');
 Route::get('detail','PengajuanController@getDetail')->name('getDetail');
 Route::get('find','Monitoring@findCode')->name('find');
 Route::get('updateStatus','PengajuanController@updateStatus')->name('updateStatus');
+Route::get('downloadPDF','PengajuanController@downloadPDF');

@@ -13,7 +13,7 @@ class Berkas_Pengajuan extends Model
     protected $primaryKey = 'Id_berkaspengajuan';
 
     protected $fillable = [
-       'Id_pengajuan', 'Id_berkas','Jumlah_berkas'
+       'Id_pengajuan', 'Id_berkas','Jumlah_berkas','Harga'
     ];
 
     public function Berkas()

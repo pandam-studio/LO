@@ -22,10 +22,16 @@ class PengajuanController extends Controller
         $this->middleware('auth');
     }
     //tampilan daftar pengajuan
-    public function index(){
-        $pengajuan = pengajuan::with(['Alumni','Status'])->
-        orderBy('Id_pengajuan','desc')->paginate(10);
+    public function index(Request $r){
+        $search = isset($r->search)? $r->search : "";
+        $pengajuan = pengajuan::with(['Alumni','Status'])->whereHas('Alumni',function($q) use($search){
+            $q->Where("Nama","like","%$search%");
+        })->
+        orderBy('Id_pengajuan','desc')->orWhere('Code','like',"%$search%")->paginate(10);
+        // @dump($pengajuan);
         $status = status::orderBy('Urutan','ASC')->get();
+       
+
         return view('pengajuan',['pengajuan'=>$pengajuan,'status'=>$status]);
     }
 

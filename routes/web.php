@@ -17,7 +17,7 @@ Auth::routes();
 Route::get('/', 'Monitoring@index');
 
 Route::get('/home', 'HomeController@index');
-Route::get('/laporan', 'HomeController@laporan');
+Route::get('/laporan', 'PengajuanController@laporan');
 Route::get('/pengajuan', 'PengajuanController@index')->name('home');
 Route::get('/pengajuan/cekAlumni', 'AlumniController@cekAlumni')->name('cekAlumni');
 Route::post('/pengajuan/store', 'PengajuanController@store')->name('store');
@@ -27,4 +27,4 @@ Route::get('pengajuan/delete/{id}', 'PengajuanController@delete');
 Route::get('detail','PengajuanController@getDetail')->name('getDetail');
 Route::get('find','Monitoring@findCode')->name('find');
 Route::get('updateStatus','PengajuanController@updateStatus')->name('updateStatus');
-Route::get('downloadPDF','PengajuanController@downloadPDF');
+Route::get('downloadPDF','PengajuanController@downloadPDF')->name('downloadPDF');

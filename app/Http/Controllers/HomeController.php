@@ -38,7 +38,6 @@ class HomeController extends Controller
     }
 
 
-
     public function laporan(){
         return view('laporan');
     }

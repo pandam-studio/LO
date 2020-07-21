@@ -133,20 +133,38 @@ class PengajuanController extends Controller
     }
     public function downloadPDF(Request $r)
     {
-        $tanggalMulai =$r->tanggalMulai;
-        $tanggalSelesai = $r->$tanggalSelesai;
-        $pengajuan = DB::select('SELECT ', [1]);
+        $tanggalMulai =isset($r->from)?$r->from:'2020-07-18';
+        $tanggalSelesai =isset($r->to)?$r->to:date('Y-m-d');
+        $pengajuan = Pengajuan::with('Berkas_Pengajuan','Alumni')->whereBetween('Tgl_masuk',[$tanggalMulai,$tanggalSelesai])->get();
         $berkas = Berkas::get();
         $data=[
-            'tanggalMulai'=>$tanggalMulai,
-            'tanggalSelesai' =>$tanggalSelesai,
+            'tanggalMulai'=> $tanggalMulai,
+            'tanggalSelesai' => $tanggalSelesai,
             'berkas'=>$berkas,
-            'Pengajuan'=>$pengajuan
+            'pengajuan'=>$pengajuan
         ];
-        $pegawai = Alumni::limit(200)->get();
 
         $pdf = PDF::loadview('downloadPDF',$data);
         return $pdf->download('laporan-pegawai.pdf');
     }
 
+    public function laporan(Request $r){
+
+        $from = isset($r->from)?$r->from :'22/06/2020';
+        $to = isset($r->to) ? $r->to : now();
+
+        $idSiapDiambil = Status::orderBy('Urutan','DESC')->first()->Id_status;
+        $done = Pengajuan::where('Tgl_keluar','!=',null)->count();
+        $rtp = Pengajuan::where([['Id_status',$idSiapDiambil],['Tgl_keluar',null]])->count();
+        $op = Pengajuan::where([['Id_status','!=',$idSiapDiambil],['Tgl_keluar',null]])->count();
+        $pengajuan = Pengajuan::with('Berkas_Pengajuan','Alumni')->whereBetween('Tgl_masuk',['2020-05-1','2020-06-30'])->get();
+        $data =array(
+            'from'=>date('d/M/Y'),
+            'to'=>date('Y'),
+            'rtp'=>$rtp,
+            'op'=>$op,
+            'done'=> $done,
+                 );
+        return view('laporan',$data);
+    }
 }

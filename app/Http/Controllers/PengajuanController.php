@@ -23,16 +23,27 @@ class PengajuanController extends Controller
     }
     //tampilan daftar pengajuan
     public function index(Request $r){
-        $search = isset($r->search)? $r->search : "";
-        $pengajuan = pengajuan::with(['Alumni','Status'])->whereHas('Alumni',function($q) use($search){
-            $q->Where("Nama","like","%$search%");
-        })->
-        orderBy('Id_pengajuan','desc')->orWhere('Code','like',"%$search%")->paginate(10);
-        // @dump($pengajuan);
-        $status = status::orderBy('Urutan','ASC')->get();
+        $stat = $r->status;
+        $search = $r->search;
+        if($search){
+            $status= 1;
+            $pengajuan = pengajuan::with(['Alumni','Status'])->whereHas('Alumni',function($q) use($search){
+                $q->Where("Nama","like","%$search%");
+            })->
+            orderBy('Id_pengajuan','desc')->orWhere('Code','like',"%$search%")->paginate(10);
+        }elseif ($stat) {
+            $pengajuan = pengajuan::with(['Alumni','Status'])->
+            orderBy('Id_pengajuan','desc')->Where('Id_status',$stat)->paginate(10);
+        }else{
+            $stat= 1;
+            $pengajuan = pengajuan::with(['Alumni','Status'])->
+                orderBy('Id_pengajuan','desc')->paginate(10);             
+        }
        
+        $status = status::orderBy('Urutan','ASC')->get();
 
-        return view('pengajuan',['pengajuan'=>$pengajuan,'status'=>$status]);
+        return view('pengajuan',['pengajuan'=>$pengajuan,'status'=>$status,
+        'selected'=>$stat,'search'=>$search]);
     }
 
 
@@ -112,12 +123,22 @@ class PengajuanController extends Controller
     public function getDetail(Request $req)
     {
         $idPeng = $req->Id_pengajuan;
-        $data= DB::select("SELECT pengajuan.*,berkas_pengajuan.* FROM pengajuan LEFT JOIN
+        $data= DB::select("SELECT pengajuan.*,berkas_pengajuan.*,berkas.Nama_berkas FROM pengajuan LEFT JOIN
                 berkas_pengajuan ON pengajuan.Id_pengajuan=berkas_pengajuan.Id_pengajuan
+                LEFT JOIN berkas on berkas_pengajuan.Id_berkas= berkas.Id_berkas
                 WHERE pengajuan.Id_pengajuan=$idPeng");
             return response()->json($data, 200);
     }
 
+    public function ambil(Request $r){
+        $idPeng = $r->idPeng;
+       
+        if(DB::update('update pengajuan set Tgl_keluar = ? where Id_pengajuan = ?', [now(),$idPeng])){
+            return response()->json(['success'=>true], 200);
+        }else{
+            return response()->json([], 200);
+        }
+    }
     public function updateStatus(Request $r)
     {
         $status = $r->status;

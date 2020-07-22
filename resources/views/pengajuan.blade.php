@@ -15,13 +15,19 @@
           <div class="controls-above-table">
             <div class="row">
               <div class="col-sm-6">
+                <form class="form-inline justify-content-sm-start" id="form">
+                  <input class="form-control form-control-sm rounded bright" placeholder="Search" type="text" name="search" value="{{ old('search') }}">
+                  <button class="btn btn-primary" type="submit">Cari</button>
+                </form>
               </div>
               <div class="col-sm-6">
                 <form class="form-inline justify-content-sm-end">
-                  <input class="form-control form-control-sm rounded bright" placeholder="Search" type="text" name="search">
-                  <select class="form-control form-control-sm rounded bright">
+                  <select class="form-control form-control-sm rounded bright" 
+                   name="status" onChange="this.form.submit()">
                     @foreach($status as $s)
-                        <option value="{{$s->Id_status}}">{{$s->Keterangan}}</option>
+                        <option value="{{$s->Id_status}}" 
+                          {{($s->Id_status==$selected)?"selected":""}}
+                          > {{$s->Keterangan}} </option>
                     @endforeach
                   </select>
                 </form>
@@ -42,6 +48,8 @@
                     <th>No Alumni</th>
                     <th>Nama</th>
                     <th>Status</th>
+                    <th>Tgl Pengajuan</th>
+                    <th>Tgl Pengambilan</th>
                     <th>Aksi</th>
                 </tr>
               </thead>
@@ -56,13 +64,18 @@
                   <td >{{ $item->Alumni->No_alumni }}</td>
                   <td >{{ $item->Alumni->Nama }}</td>
                   <td>{{$item->Status->Keterangan}}</td>
+                  <td>{{$item->Tgl_masuk}}</td>
+                  <td>{{$item->Tgl_keluar}}</td>
+
                   <td class="row-actions">
                     <a class="detail" data-id="{{$item->Id_pengajuan}}"
                         data-nama="{{$item->alumni->Nama}}"
                         data-email="{{$item->alumni->Email}}"
                         data-status="{{$item->Id_status}}" href="#"><i class="os-icon os-icon-ui-49"></i></a>
-                    {{-- <a class="update" data-id="{{$item->Id_pengajuan}}" href="#" ><i class="os-icon os-icon-grid-10"></i></a> --}}
                     <a class="danger" data-id="{{$item->Id_pengajuan}}" href="#"><i class="os-icon os-icon-ui-15"></i></a>
+                    @if(empty($item->Tgl_keluar))
+                      <a class="btn btn-success text-white ambil" data-id="{{$item->Id_pengajuan}}" href="#">Ambil berkas</a>                        
+                    @endif
                   </td>
                 </tr>
                 @endforeach
@@ -166,6 +179,24 @@
                 swal("Your data is safe!");
             }
             });
+    });
+
+
+    $('.ambil').click(function (e) {
+        e.preventDefault();
+        let id = $(this).data("id");
+        $.get("{{route('ambil')}}", {idPeng:id},
+            function (data) {
+                if(data!=""){
+                    swal("Data saved!", "Berkas di ambil", "success").then(()=>{
+                        location.reload();
+                    });
+                }else{
+                    swal("Failed to save", "please try again!", "error");
+                }
+            },
+            "json"
+        );
     });
 
     $('#save').click(function (e) {

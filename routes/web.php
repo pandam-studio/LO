@@ -24,6 +24,7 @@ Route::post('/pengajuan/store', 'PengajuanController@store')->name('store');
 Route::get('/response','PengajuanController@response')->name('response');
 
 Route::get('pengajuan/delete/{id}', 'PengajuanController@delete');
+Route::get('pengajuan/ambil', 'PengajuanController@ambil')->name('ambil');
 Route::get('detail','PengajuanController@getDetail')->name('getDetail');
 Route::get('find','Monitoring@findCode')->name('find');
 Route::get('updateStatus','PengajuanController@updateStatus')->name('updateStatus');

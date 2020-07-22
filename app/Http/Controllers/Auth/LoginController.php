@@ -48,5 +48,8 @@ class LoginController extends Controller
             // 'code' => 'required|exists|users,code',
         ]);
     }
-
+    public function showLoginForm()
+    {
+        return view('auth.auth');
+    }
 }

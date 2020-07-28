@@ -21,7 +21,8 @@
     <link href="admin/css/main.css?version=4.4.0" rel="stylesheet">
     <script src="admin/bower_components/jquery/dist/jquery.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
+    {{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script> --}}
+    @yield('head') 
   </head>
   <body class="menu-position-side menu-side-left full-screen with-content-panel">
     <div class="all-wrapper with-side-panel solid-bg-all">
@@ -358,6 +359,36 @@
                   </div>
                   <span>Cetak Laporan</span></a>
             </li>
+
+            <li class="sub-header">
+              <span>Kelola</span>
+            </li>
+            <li class="selected">
+            <a href="{{url('alumni')}}">
+                <div class="icon-w">
+                  <div class="os-icon os-icon-user-male-circle"></div>
+                </div>
+                <span>Alumni</span></a>
+            </li>
+
+              <li class="selected">
+              <a href="{{url('berkas')}}">
+                  <div class="icon-w">
+                    <div class="os-icon os-icon-newspaper"></div>
+                  </div>
+                  <span>Berkas</span></a>
+              </li>
+
+              @if (Auth::user()->id_user==1)
+                <li class="selected">
+                  <a href="{{url('adminx')}}">
+                      <div class="icon-w">
+                        <div class="os-icon os-icon-robot-2"></div>
+                      </div>
+                      <span>Admin</span></a>
+                </li>    
+              @endif
+              
           </ul>
         </div>
         <!--------------------

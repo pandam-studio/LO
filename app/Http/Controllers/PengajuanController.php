@@ -28,7 +28,7 @@ class PengajuanController extends Controller
         if($search){
             $status= 1;
             $pengajuan = pengajuan::with(['Alumni','Status'])->whereHas('Alumni',function($q) use($search){
-                $q->Where("Nama","like","%$search%");
+                $q->Where("Nama","like","%$search%")->orWhere("No_alumni","like","%$search%");
             })->
             orderBy('Id_pengajuan','desc')->orWhere('Code','like',"%$search%")->paginate(10);
         }elseif ($stat) {
@@ -84,8 +84,10 @@ class PengajuanController extends Controller
                             Berkas_Pengajuan::Create([
                                 'Id_pengajuan'=> $Pengajuan->Id_pengajuan,
                                 'Id_berkas'=> $value->Id_berkas,
+                                'Nama_berkas'=>$value->Nama_berkas,
                                 'Jumlah_berkas'=> $request->$nameWithOutSpace,
-                                'Harga'=>$value->Harga
+                                'Harga'=>$value->Harga,
+                                'Harga_total'=>$request->$nameWithOutSpace*$value->Harga
                             ]);
                         }
                     }
@@ -108,7 +110,7 @@ class PengajuanController extends Controller
     public function response(Request $r)
     {
         $id =$r->input('id');
-        $data = DB::select("select berkas_pengajuan.* , berkas.* from berkas_pengajuan join berkas on berkas_pengajuan.Id_berkas=berkas.Id_berkas where berkas_pengajuan.Id_pengajuan=?",[$id]);
+        $data = Berkas_Pengajuan::where('Id_pengajuan',$id)->get();
         if($data){
             return view('response',['data'=>$data]);
         }else{
@@ -160,8 +162,12 @@ class PengajuanController extends Controller
     }
     public function downloadPDF(Request $r)
     {
-        $tanggalMulai =isset($r->from)?$r->from:'2020-07-18';
-        $tanggalSelesai =isset($r->to)?$r->to:date('Y-m-d');
+        $tanggalMulai =isset($r->from) ? $r->from : '2020-07-18';
+        $tanggalSelesai =isset($r->to) ? $r->to : date('Y-m-d');
+
+        $tanggalMulai= date('Y-m-d',strtotime($tanggalMulai));
+        $tanggalSelesai= date('Y-m-d',strtotime($tanggalSelesai));
+
         $pengajuan = Pengajuan::with('Berkas_Pengajuan','Alumni')->whereBetween('Tgl_masuk',[$tanggalMulai,$tanggalSelesai])->get();
         $berkas = Berkas::get();
         $data=[
@@ -172,7 +178,7 @@ class PengajuanController extends Controller
         ];
 
         $pdf = PDF::loadview('downloadPDF',$data);
-        return $pdf->download('laporan-pegawai.pdf');
+        return $pdf->download('laporan.pdf');
     }
 
     public function laporan(Request $r){

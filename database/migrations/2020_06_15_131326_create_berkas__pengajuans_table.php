@@ -21,8 +21,10 @@ class CreateBerkasPengajuansTable extends Migration
             $table->foreign('Id_pengajuan')->references('Id_pengajuan')->on('Pengajuan')->onDelete('cascade')->onUpdate('cascade');
             $table->unsignedBigInteger('Id_berkas');
             $table->foreign('Id_berkas')->references('Id_berkas')->on('Berkas')->onDelete('cascade')->onUpdate('cascade');
+            $table->string('Nama_berkas');
             $table->integer('Jumlah_berkas');
-            $table->integer('Harga');
+            $table->integer('Harga'); 
+            $table->integer('Harga_total');
             // $table->timestamps();
         });
     }

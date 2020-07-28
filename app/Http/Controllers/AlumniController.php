@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use Illuminate\Http\Response;
 use App\Alumni;
+use DataTables;
 
 class AlumniController extends Controller
 {
@@ -28,4 +29,48 @@ class AlumniController extends Controller
 
     }
 
+    public function index()
+    {
+        $alumni= Alumni::get();
+        return view('alumni.index',['alumni'=>$alumni,'i'=>1]);
+    }
+    public function getAlumni(){
+  
+        return datatables()->of(DB::table('alumni'))->toJson();
+    
+    }
+
+
+  
+    function delete($id){
+        if($id!=1){
+        DB::delete('delete from alumni where Id_alumni = ?', [$id]);
+        }
+    }
+
+    function store(Request $r){
+    
+        if ($r->id!="") {
+            $x= User::updateOrCreate([
+                'Id_alumni'=>$r->id],
+                ['No_alumni'=>$r->noAlumni,
+                'Nama'=>$r->nama,
+                'Email'=>$r->email]);
+            $message = "data berhasil diperbarui!";  
+        }else{
+            $x= User::create([
+                'nik'=>$r->nik,
+                'nama'=>$r->nama,
+                'email'=>$r->email,
+                'password'=>Hash::make($r->password)
+                ]);  
+            $message = "data berhasil ditambahkan!";  
+        }
+
+        if($x){
+            return response()->json(['result'=>'success','message'=>$message,'messageTitle'=>'Success!'],200);
+        }else{
+            return response()->json(['result'=>'error','message'=>'Please try again!','messageTitle'=>'Error!'],200);
+        }
+    }
 }

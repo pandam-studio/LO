@@ -49,7 +49,7 @@
                   <div class="form-group">
                     <label for="">From </label>
                     <div class="date-input">
-                      <input class="form-control" placeholder="" type="date" name="from">
+                      <input class="single-daterange form-control" placeholder="" type="text" name="from">
                     </div>
                   </div>
                 </div>
@@ -57,7 +57,7 @@
                   <div class="form-group">
                     <label for="">To </label>
                     <div class="date-input">
-                      <input class="form-control" placeholder="" type="date" name="to">
+                      <input class="single-daterange form-control" placeholder="" type="text" name="to">
                     </div>
                   </div>
                 </div>

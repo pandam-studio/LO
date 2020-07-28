@@ -29,3 +29,17 @@ Route::get('detail','PengajuanController@getDetail')->name('getDetail');
 Route::get('find','Monitoring@findCode')->name('find');
 Route::get('updateStatus','PengajuanController@updateStatus')->name('updateStatus');
 Route::get('downloadPDF','PengajuanController@downloadPDF')->name('downloadPDF');
+
+Route::get('alumni','AlumniController@index')->name('alumni');
+Route::get('getAlumni','AlumniController@getAlumni')->name('getAlumni');
+Route::get('/alumni/delete/{id}', 'AlumniController@delete')->name('deleteAlumni');
+Route::post('/alumni/tambah','AlumniController@store')->name('tambahAlumni');
+
+
+Route::get('/berkas', 'BerkasController@index')->name('berkas');
+Route::get('/berkas/delete/{id}', 'BerkasController@delete')->name('deleteBerkas');
+Route::post('/berkas/tambah','BerkasController@store')->name('tambahBerkas');
+
+Route::get('adminx', 'AdminController@index')->name('admin');
+Route::post('/adminx/tambah','AdminController@store')->name('tambahUser');
+Route::get('/adminx/delete/{id}', 'AdminController@delete')->name('deleteUser');

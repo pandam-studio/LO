@@ -27,9 +27,12 @@
                         <div class="col-4">{{$d->Nama_berkas}} </div>
                         <div class="col-2">{{$d->Harga}}</div>
                         <div class="col-2">{{$d->Jumlah_berkas}}</div>
-                        <div class="col-4"> {{$total += $d->Jumlah_berkas*$d->Harga}}</div>
+                        <div class="col-4"> {{$d->Harga_total}}</div>
                     </div>
                     <hr>
+                    @php
+                        $total +=$d->Harga_total;
+                    @endphp
                     @endforeach
 
                 <strong>Total Pembayaran : Rp. {{$total}}</strong>

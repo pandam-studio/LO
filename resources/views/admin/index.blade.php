@@ -57,7 +57,7 @@
                 <div class="form-group row">
                   <label class="col-sm-3 col-form-label">Nik</label>
                   <div class="col-sm-7">
-                      <input class="form-control" id="nik">
+                      <input type="number" class="form-control" maxlength="10" id="nik">
                   </div>
                 </div>
                 <div class="form-group row">
@@ -84,12 +84,13 @@
                       <input type="password" class="form-control" id="password1" min="6">
                   </div>
                 </div>
-              </form>
+             
         </div>
         <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary" id="save">Save</button>
         </div>
+      </form>
     </div>
     </div>
 </div>
@@ -142,19 +143,99 @@
         }
     });
 
+    $('#email').blur(function (e) { 
+      e.preventDefault();
+      let email =$(this).val();
+      let id = $('#id').val();
+      $.getJSON("{{url('/validateEmail')}}", {id:id,email:email},
+        function (data, textStatus, jqXHR) {
+          if(data.result=="error"){
+            swal('error!',data.message,data.result).then(()=>{$('#email').focus()});
+            $('#save').attr('disabled',true);
+          }else{
+            // swal('ok!',data.message,'info');
+            $('#save').attr('disabled',false);
+          }
+        }
+      );
+    });
+
     function cekField(){
-      let isComplete = true;
-      if(    $('#id').val("")||
-      $('#nik').val("")||
-      $('#nama').val("")||
-      $('#email').val("")||
-      $('#password').val("")||
-      $('#password').val("")){
-        swal('error!','please input field','error')
-        isComplete = false
+      let idEl = $('#id');
+      let nikEl = $('#nik');
+      let namaEl = $('#nama');
+      let emailEl = $('#email');
+      let passwordEl =$('#password');
+      let password1El =$('#password1');
+
+      let id = idEl.val();
+      let nik = nikEl.val();
+      let nama = namaEl.val();
+      let email = emailEl.val();
+      let password = passwordEl.val();
+      let password1 =password1El.val();
+
+      if(nik==""|| isNaN(nik)){
+        swal('error!','please input field nik!','error').then(()=>{
+        nikEl.focus();
+        });
+        return false;
       }
 
-      return isComplete;
+      if(nama==""){
+        swal('error!','please input field nama!','error').then(()=>{
+        namaEl.focus();
+        
+        });
+        return false;
+      }
+
+      if(email==""){
+        swal('error!','please input field email!','error').then(()=>{
+        emailEl.focus();
+        });
+        return false;
+      }
+
+      if(id==""){
+        if(password==""){
+          swal('error!','please input field password!','error').then(()=>{
+          passwordEl.focus();
+          });
+          return false;
+        }
+        if(password1==""){
+          swal('error!','please input field password confirmation!','error').then(()=>{
+          password1El.focus();
+          });
+          return false;
+        }
+      }
+      
+      if(email.indexOf('@')<1 || email.lastIndexOf('.')<1){
+        swal('error!','invalid email!','error').then(()=>{
+        emailEl.focus();
+        });
+        return false;
+      }
+
+      if(password!=password1){
+        swal('error!','password doesn`t match!','error').then(()=>{
+          password1El.focus();
+        });
+          return false;
+      }
+
+      if(password!=""){
+        if(password.length <6){
+          swal('error!','minimum password is 6 character!','error').then(()=>{
+          password1El.focus();
+          });
+          return false;
+        }
+      }
+
+      return true;
     }
 
     $('#save').click(function (e) { 
@@ -168,9 +249,10 @@
         let password =$('#password').val();
         let password1 =$('#password1').val();
 
-        $.post("{{route('tambahUser')}}", {id:id,nik:nik,nama:nama,email:email,password:password,password1:password1},
-          
-          function (data) {
+        $.post("{{route('tambahUser')}}", {id:id,nik:nik,nama:nama,email:email,password:password,password1:password1},          
+          function (data,textStatus, xhr) {
+
+            // console.log( xhr +'sad'+textStatus);
             if(data!==""){
               swal(data.messageTitle,data.message,data.result).then(()=>location.reload());
             }else{

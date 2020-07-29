@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
         $this->call(statusSeeder::class);
 
         User::create([
-            'id_user'=>0,
+            'id_user'=>1,
             'nik'=>'220696',
             'nama'=>'versta',
             'email'=>'versta@ummgl.ac.id',

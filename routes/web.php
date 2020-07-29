@@ -43,3 +43,4 @@ Route::post('/berkas/tambah','BerkasController@store')->name('tambahBerkas');
 Route::get('adminx', 'AdminController@index')->name('admin');
 Route::post('/adminx/tambah','AdminController@store')->name('tambahUser');
 Route::get('/adminx/delete/{id}', 'AdminController@delete')->name('deleteUser');
+Route::get('/validateEmail', 'AdminController@validateEmail');

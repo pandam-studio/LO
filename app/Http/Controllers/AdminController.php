@@ -31,11 +31,20 @@ class AdminController extends Controller
             die;
         }
         if ($r->id!="") {
-            $x= User::updateOrCreate(['id_user'=>$r->id],
+            if($r->password!=""){
+                $x= User::updateOrCreate(['id_user'=>$r->id],
                 ['nik'=>$r->nik,
                 'nama'=>$r->nama,
                 'email'=>$r->email,
-                'password'=>Hash::make($r->password)]);
+                'password'=>Hash::make($r->password)
+                ]);
+            }else{
+                $x= User::updateOrCreate(['id_user'=>$r->id],
+                ['nik'=>$r->nik,
+                'nama'=>$r->nama,
+                'email'=>$r->email]);
+            }
+         
             $message = "data berhasil diperbarui!";  
         }else{
                 $r->validate([

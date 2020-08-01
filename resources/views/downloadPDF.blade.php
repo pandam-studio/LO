@@ -49,16 +49,26 @@
 				<td>{{ $p->Code }}</td>
 				<td>{{$p->Alumni->Nama}}</td>
 				@foreach ($berkas as $b)
+					@php
+						$cek=false; 
+					@endphp
 					@foreach ($p->Berkas_Pengajuan as $bp)
 						@php
-							if($b->Id_berkas==$bp->Id_berkas){
+							if($b->Id_berkas == $bp->Id_berkas){
 								echo("<th>$bp->Jumlah_berkas</th>");
 								$subtotal += $bp->Jumlah_berkas * $bp->Harga;
-							}else{
-								echo("<th>0</th>");
+								$cek=true;
+								break 1;
 							}
 						@endphp
 					@endforeach
+					@php
+					if(!$cek){
+						echo("<th>0</th>");	
+					}
+					@endphp		
+
+							
 				@endforeach
 				<td>Rp. {{ number_format($subtotal ,0,',','.')}}</td>
 				@php

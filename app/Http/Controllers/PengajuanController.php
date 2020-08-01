@@ -170,6 +170,7 @@ class PengajuanController extends Controller
 
         $pengajuan = Pengajuan::with('Berkas_Pengajuan','Alumni')->whereBetween('Tgl_masuk',[$tanggalMulai,$tanggalSelesai])->get();
         $berkas = Berkas::get();
+        // dd($pengajuan);
         $data=[
             'tanggalMulai'=> $tanggalMulai,
             'tanggalSelesai' => $tanggalSelesai,

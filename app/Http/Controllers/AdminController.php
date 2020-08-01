@@ -44,7 +44,6 @@ class AdminController extends Controller
                 'nama'=>$r->nama,
                 'email'=>$r->email]);
             }
-         
             $message = "data berhasil diperbarui!";  
         }else{
                 $r->validate([

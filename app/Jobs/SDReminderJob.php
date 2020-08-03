@@ -7,24 +7,17 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use App\Mail\LOEmail;
-use App\Mail\PickupNotify;
 use Illuminate\Support\Facades\Mail;
+use App\Mail\SevenDayReminder;
 use App\Alumni;
 use App\Status;
-class SendMailJob implements ShouldQueue
+class SDReminderJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    /**
-     * Create a new job instance.
-     *
-     * @return void
-     */
-
-     protected $idAlumni;
-     protected $code;
-     protected $idStatus;
+    protected $idAlumni;
+    protected $code;
+    protected $idStatus;
     public function __construct($idAlumni,$code,$idStatus)
     {
         $this->idAlumni = $idAlumni;
@@ -33,10 +26,10 @@ class SendMailJob implements ShouldQueue
     }
 
     /**
-     * Execute the job.
-     *
-     * @return void
-     */
+        * Execute the job.
+        *
+        * @return void
+        */
     public function handle()
     {
         $id =$this->idAlumni;
@@ -45,13 +38,9 @@ class SendMailJob implements ShouldQueue
         $status = Status::find($idStatus);
         $alumni= Alumni::where('Id_alumni',$id)->first();
         $keterangan= $status->Keterangan;
-        if($status->Urutan==1){
-            Mail::to($alumni->Email)->
-            send(new LOEmail($alumni->Nama,$code,$keterangan));
-        }else{
-            Mail::to($alumni->Email)->
-            send(new PickupNotify($alumni->Nama,$code,$keterangan));
-        }
+
+        Mail::to($alumni->Email)->
+        send(new SevenDayReminder($alumni->Nama,$code,$keterangan));
     
     }
 }

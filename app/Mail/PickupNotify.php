@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class LOEmail extends Mailable
+class PickupNotify extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -16,10 +16,12 @@ class LOEmail extends Mailable
      *
      * @return void
      */
+
     protected $Nama;
     protected $code;
     protected $keterangan;
-     public function __construct($NamaAlumni,$code,$keterangan)
+
+    public function __construct($NamaAlumni,$code,$keterangan)
     {
         $this->Nama=$NamaAlumni;
         $this->code= $code;
@@ -38,7 +40,7 @@ class LOEmail extends Mailable
         $keterangan=$this->keterangan;
         
         return $this->from('Teknik@ummgl.ac.id')
-                      ->view('email.notifyUser')
+                      ->view('email.pickupNotify')
                       ->with(
                         [
                             'nama' => $nama,
@@ -46,4 +48,4 @@ class LOEmail extends Mailable
                             'keterangan' => $keterangan
                         ])->subject('Informasi Legalisir');
     }
-} 
+}

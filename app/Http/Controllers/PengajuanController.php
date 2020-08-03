@@ -97,8 +97,8 @@ class PengajuanController extends Controller
         }
         
         if($transaction){
-            $keterangan = Status::where('Urutan',1)->first()->Keterangan;
-            $emailJob = (new SendMailJob($idAlumni,$code, $keterangan));
+            $idStatus = Status::where('Urutan',1)->first()->Id_status;
+            $emailJob = (new SendMailJob($idAlumni,$code, $idStatus));
             dispatch($emailJob);
             return redirect()->route('response',['id' => $idPeng]);
         }else{
@@ -148,11 +148,11 @@ class PengajuanController extends Controller
         // $pengajuan = DB::select("select * from ", [1])
        if(DB::update('update pengajuan set Id_status = ? where Id_pengajuan = ?', [$status,$idPeng])){
            if ($status==Status::orderBy('Urutan','DESC')->first()->Id_status) {
-                $keterangan = Status::orderBy('Urutan','DESC')->first()->Keterangan;
+                $idStatus = Status::orderBy('Urutan','DESC')->first()->Id_status;
                 $pengajuan= Pengajuan::where('Id_pengajuan',$idPeng)->first();
                 $idAlumni = $pengajuan->Id_alumni;
                 $code = $pengajuan->Code;
-                $emailJob = (new SendMailJob($idAlumni,$code,$keterangan));
+                $emailJob = (new SendMailJob($idAlumni,$code,$idStatus));
                 dispatch($emailJob);
            }
         return response()->json(['success'=>true], 200);

@@ -1,7 +1,10 @@
-<h3>Hallo, {{ $nama }} !</h3>
+<p>Terima kasih {{$nama}} sudah melakukan legalisir ijazah</p>
 
-<p>Email ini berisi informasi status berkas pengajuan</p>
+<p>berikut status berkas legalisir : {{$keterangan}}</p>
 
-<p>Status Berkas : {{$keterangan}}</p>
-
-<p>Berikut kode unik yang dapat kamu gunakan untuk memantau berkas mu : <strong>{{ $code }}</strong></p>
+<p>Berikut kode unik yang dapat kamu gunakan untuk memantau berkasmu : <strong>{{ $code }}</strong></p>
+<br>
+<p>Fakultas Teknik<br>
+    Universitas Muhammadiyah Magelang<br>
+    Jl. Mayjend. Bambang Sugeng KM.5 Mertoyudan Magelang 56172<br>
+    Telepon/Fax 0293 326945 ext.2211.</p>

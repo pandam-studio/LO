@@ -40,7 +40,7 @@ class DailyEmailReminder extends Command
     public function handle()
     {
         $sevenDayReminder = Pengajuan::with('Status','Alumni')->
-        whereDate('Tgl_masuk','<=', Carbon::now()->subDays(21)->toDateTimeString())->
+        whereDate('Tgl_masuk','<=', Carbon::now()->subDays(23)->toDateTimeString())->
         where('Tgl_keluar',null)->get();
         foreach($sevenDayReminder as $s){
             $emailJob = (new SDReminderJob(

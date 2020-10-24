@@ -22,10 +22,10 @@
               </div>
               <div class="col-sm-6">
                 <form class="form-inline justify-content-sm-end">
-                  <select class="form-control form-control-sm rounded bright" 
+                  <select class="form-control form-control-sm rounded bright"
                    name="status" onChange="this.form.submit()">
                     @foreach($status as $s)
-                        <option value="{{$s->Id_status}}" 
+                        <option value="{{$s->Id_status}}"
                           {{($s->Id_status==$selected)?"selected":""}}
                           > {{$s->Keterangan}} </option>
                     @endforeach
@@ -74,7 +74,7 @@
                         data-status="{{$item->Id_status}}" href="#"><i class="os-icon os-icon-ui-49"></i></a>
                     <a class="danger" data-id="{{$item->Id_pengajuan}}" href="#"><i class="os-icon os-icon-ui-15"></i></a>
                     @if(empty($item->Tgl_keluar))
-                      <a class="btn btn-success text-white ambil" data-id="{{$item->Id_pengajuan}}" href="#">Ambil berkas</a>                        
+                      <a class="btn btn-success text-white ambil" data-id="{{$item->Id_pengajuan}}" href="#">Ambil berkas</a>
                     @endif
                   </td>
                 </tr>

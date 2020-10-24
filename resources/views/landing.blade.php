@@ -51,7 +51,7 @@
                                         <div class="row">
                                             <div class="col-md-12 col-lg-10 mx-auto text-center">
                                                 <i class="fas fa-search fa-2x mb-2 text-dark"></i>
-                                                <h3>Tracking legalisir mu</h3>
+                                                <h3>Tracking legalisirmu</h3>
 
                                                 <div class="form-group row" >
                                                     <input class="form-control flex-fill mr-0 mr-sm-2 mb-3 mb-sm-0" id="code" type="text" placeholder="Enter your unique code.." />

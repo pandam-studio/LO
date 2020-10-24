@@ -5,7 +5,7 @@
     <div class="col-sm-12">
       <div class="element-wrapper">
         <h6 class="element-header">
-          Laporan       
+          Laporan
         </h6>
         <div class="element-box-tp">
           <div class="element-content">

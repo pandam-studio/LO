@@ -34,8 +34,8 @@
           <div class="form-group">
             <label for="">NIK atau Email</label>
             <input class="form-control @error('email') is-invalid @enderror"
-            placeholder="Enter your Email" type="email" autocomplete="email"
-            name="email" value="{{ old('email') }}">
+            placeholder="Enter your Email" type="text" autocomplete="email"
+            name="nik" value="{{ old('nik') }}">
             <div class="pre-icon os-icon os-icon-user-male-circle"></div>
             @error('email')
                 <span class="invalid-feedback" role="alert">

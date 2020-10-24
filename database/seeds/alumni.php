@@ -15,7 +15,7 @@ class alumni extends Seeder
         $faker = Faker::create('id_ID');
         for($i=0;$i<100;$i++){
 
-            DB::table('alumni')->insert([
+            DB::table('Alumni')->insert([
                 'No_alumni' => $faker->numberBetween(1000,100000),
                 'Nama' => $faker->name,
                 'email' => $faker->email

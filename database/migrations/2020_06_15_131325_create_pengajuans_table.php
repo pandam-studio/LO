@@ -20,7 +20,7 @@ class CreatePengajuansTable extends Migration
             $table->unsignedBigInteger('Id_alumni');
             $table->foreign('Id_alumni')->references('Id_alumni')->on('Alumni')->onDelete('cascade')->onUpdate('cascade');
             $table->unsignedBigInteger('Id_status');
-            $table->foreign('Id_status')->references('Id_status')->on('status')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('Id_status')->references('Id_status')->on('Status')->onDelete('cascade')->onUpdate('cascade');
             $table->date('Tgl_masuk')->nullable();
             $table->date('Tgl_keluar')->nullable();
             $table->string('Code')->unique();

@@ -32,7 +32,7 @@
         <form action="{{ route('login') }}" method="POST">
             @csrf
           <div class="form-group">
-            <label for="">NIK atau Email</label>
+            <label for="">NIK</label>
             <input class="form-control @error('email') is-invalid @enderror"
             placeholder="Enter your Email" type="text" autocomplete="email"
             name="nik" value="{{ old('nik') }}">

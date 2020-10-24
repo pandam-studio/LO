@@ -119,7 +119,7 @@ class PengajuanController extends Controller
     }
 
     public function delete($id){
-        DB::delete('delete from pengajuan where Id_pengajuan = ?', [$id]);
+        Berkas_Pengajuan::destroy($id);
     }
 
     public function getDetail(Request $req)
@@ -135,7 +135,7 @@ class PengajuanController extends Controller
     public function ambil(Request $r){
         $idPeng = $r->idPeng;
        
-        if(DB::update('update pengajuan set Tgl_keluar = ? where Id_pengajuan = ?', [now(),$idPeng])){
+        if(Pengajuan::find($idPeng)->update(['Tgl_keluar' => now()])){
             return response()->json(['success'=>true], 200);
         }else{
             return response()->json([], 200);
@@ -146,7 +146,7 @@ class PengajuanController extends Controller
         $status = $r->status;
         $idPeng = $r->idPeng;
         // $pengajuan = DB::select("select * from ", [1])
-       if(DB::update('update pengajuan set Id_status = ? where Id_pengajuan = ?', [$status,$idPeng])){
+       if(DB::update('update Pengajuan set Id_status = ? where Id_pengajuan = ?', [$status,$idPeng])){
            if ($status==Status::orderBy('Urutan','DESC')->first()->Id_status) {
                 $idStatus = Status::orderBy('Urutan','DESC')->first()->Id_status;
                 $pengajuan= Pengajuan::where('Id_pengajuan',$idPeng)->first();
@@ -170,7 +170,6 @@ class PengajuanController extends Controller
 
         $pengajuan = Pengajuan::with('Berkas_Pengajuan','Alumni')->whereBetween('Tgl_masuk',[$tanggalMulai,$tanggalSelesai])->get();
         $berkas = Berkas::get();
-        // dd($pengajuan);
         $data=[
             'tanggalMulai'=> $tanggalMulai,
             'tanggalSelesai' => $tanggalSelesai,
@@ -178,8 +177,9 @@ class PengajuanController extends Controller
             'pengajuan'=>$pengajuan
         ];
 
-        $pdf = PDF::loadview('downloadPDF',$data);
-        return $pdf->download('laporan.pdf');
+        echo response()->json(['success'=>true,'data'=>$data], 200)->getContent();
+        // $pdf = PDF::loadview('downloadPDF',$data);
+        // return $pdf->download('laporan.pdf');
     }
 
     public function laporan(Request $r){

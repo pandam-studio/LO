@@ -18,7 +18,7 @@ class BerkasController extends Controller
         return view('berkas.index',['berkas'=>$berkas,'i'=>1]);
     }
     function delete($id){
-        DB::delete('delete from berkas where Id_berkas = ?', [$id]);
+        Berkas::destroy($id);
     }
 
     function store(Request $r){

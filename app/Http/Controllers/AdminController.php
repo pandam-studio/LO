@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Hash;
 use App\Exceptions\Handler;
+use DB;
 class AdminController extends Controller
 {
     public function __construct()
@@ -21,7 +22,7 @@ class AdminController extends Controller
 
     function delete($id){
         if($id!=1){
-        DB::delete('delete from user where id_user = ?', [$id]);
+            User::destroy($id);
         }
     }
 
@@ -47,7 +48,7 @@ class AdminController extends Controller
             $message = "data berhasil diperbarui!";  
         }else{
                 $r->validate([
-                    'email' => 'required|email|unique:user'
+                    'email' => 'required|email|unique:User'
                 ]);
             $x= User::create([
                 'nik'=>$r->nik,

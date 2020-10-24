@@ -117,7 +117,7 @@
       e.preventDefault();
 
       let id = $(this).data('id');
-      let url ="{{url('admin/delete')}}"+"/"+id;
+      let url ="{{url('adminx/delete')}}"+"/"+id;
       swal({
             title: "Are you sure?",
             text: "Once deleted, you will not be able to recover this record!",

@@ -985,6 +985,7 @@
       </div>
       <div class="display-type"></div>
     </div>
+    @yield('modal')
     <script src="admin/bower_components/jquery/dist/jquery.min.js"></script>
     <script src="admin/bower_components/popper.js/dist/umd/popper.min.js"></script>
     <script src="admin/bower_components/moment/moment.js"></script>

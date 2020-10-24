@@ -40,12 +40,8 @@ class AlumniController extends Controller
     
     }
 
-
-  
     function delete($id){
-        if($id!=1){
-        DB::delete('delete from alumni where Id_alumni = ?', [$id]);
-        }
+        Alumni::destroy($id);
     }
 
     function store(Request $r){

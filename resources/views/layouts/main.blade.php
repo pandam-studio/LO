@@ -22,7 +22,7 @@
     <script src="admin/bower_components/jquery/dist/jquery.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     {{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script> --}}
-    @yield('head') 
+    @yield('head')
   </head>
   <body class="menu-position-side menu-side-left full-screen with-content-panel">
     <div class="all-wrapper with-side-panel solid-bg-all">
@@ -386,9 +386,9 @@
                         <div class="os-icon os-icon-robot-2"></div>
                       </div>
                       <span>Admin</span></a>
-                </li>    
+                </li>
               @endif
-              
+
           </ul>
         </div>
         <!--------------------
@@ -1016,6 +1016,6 @@
     <script src="admin/js/demo_customizer.js?version=4.4.0"></script>
     <script src="admin/js/main.js?version=4.4.0"></script>
     @yield('script')
-  
+
   </body>
 </html>

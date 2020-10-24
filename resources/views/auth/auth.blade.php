@@ -32,8 +32,8 @@
         <form action="{{ route('login') }}" method="POST">
             @csrf
           <div class="form-group">
-            <label for="">Email</label>
-            <input class="form-control @error('email') is-invalid @enderror" 
+            <label for="">NIK atau Email</label>
+            <input class="form-control @error('email') is-invalid @enderror"
             placeholder="Enter your Email" type="email" autocomplete="email"
             name="email" value="{{ old('email') }}">
             <div class="pre-icon os-icon os-icon-user-male-circle"></div>
@@ -45,7 +45,7 @@
           </div>
           <div class="form-group">
             <label for="">Password</label>
-            <input class="form-control @error('password') is-invalid @enderror" 
+            <input class="form-control @error('password') is-invalid @enderror"
             placeholder="Enter your password" type="password" autocomplete="current-password"
             name="password" required>
             <div class="pre-icon os-icon os-icon-fingerprint"></div>

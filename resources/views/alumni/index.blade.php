@@ -31,8 +31,8 @@
             <th>{{$a->No_alumni}}</th>
             <th>{{$a->Nama}}</th>
             <th>{{$a->Email}}</th>
-            <th><a href="#" class="btn btn-success js-edit" data-id="{{$a->Id_alumni}}" data-noAlumni="{{$a->No_alumni}}" data-nama="{{$a->Nama}}" data-email="{{$a->Email}}"><i class="os-icon os-icon-edit-32"></i></a>
-              <a href="#" class="btn btn-danger js-delete" data-id="{{$a->Id_alumni}}" ><i class="os-icon os-icon-ui-15"></i></a></th>
+            <th><a href="#" class="btn btn-success " onClick="editx(this,'{{$a->Id_alumni}}','{{$a->No_alumni}}','{{$a->Nama}}','{{$a->Email}}')" data-id="{{$a->Id_alumni}}" data-noalumni="{{$a->No_alumni}}" data-nama="{{$a->Nama}}" data-email="{{$a->Email}}"><i class="os-icon os-icon-edit-32"></i></a>
+              <a href="#" class="btn btn-danger" onClick="deletex(this,'{{$a->Id_alumni}}')" data-id="{{$a->Id_alumni}}" ><i class="os-icon os-icon-ui-15"></i></a></th>
           </tr>    
           @endforeach
         </tbody>
@@ -90,11 +90,11 @@
     $('.js-edit').click(function (e) { 
       e.preventDefault();
       let id= $(this).data('id');
-      let noAlumni=$(this).data('noAlumni');
+      let noalumni = $(this).data('noalumni');
       let nama = $(this).data('nama');
       let email=$(this).data('email');
       $('#id').val(id);
-      $('#noAlumni').val(noAlumni);
+      $('#noAlumni').val(noalumni);
       $('#nama').val(nama);
       $('#email').val(email);
       $('#modal').modal("show");
@@ -103,25 +103,6 @@
     $('.js-delete').click(function (e) { 
       e.preventDefault();
 
-      let id = $(this).data('id');
-      let url ="{{url('alumni/delete')}}"+"/"+id;
-      swal({
-            title: "Are you sure?",
-            text: "Once deleted, you will not be able to recover this record!",
-            icon: "warning",
-            buttons: true,
-            dangerMode: true,
-          })
-          .then((willDelete) => {
-            if (willDelete) {
-              fetch(url),
-              swal("Poof! Your record has been deleted!", {
-                icon: "success",
-              }).then(()=>location.reload());
-            } else {
-              swal("Your record is safe!");
-            }
-          });
     });
 
     $.ajaxSetup({
@@ -132,18 +113,18 @@
 
     function cekField(){
       let isComplete = true;
-      if($('#id').val("")||
-      $('#noAlumni').val("")||
-      $('#nama').val("")||
-      $('#email').val("")
+      if(
+      $('#noAlumni').val()==""||
+      $('#nama').val()==""||
+      $('#email').val()==""
       ){
         swal('error!','please input field','error')
         isComplete = false
       }
-
       return isComplete;
     }
 
+    
     $('#save').click(function (e) { 
       e.preventDefault();
       
@@ -154,8 +135,8 @@
         let email = $('#email').val();
    
         $.post("{{route('tambahAlumni')}}", {id:id,noAlumni:noAlumni,nama:nama,email:email},
-          
-          function (data) {
+          function(data) {
+            console.log(data);
             if(data!==""){
               swal(data.messageTitle,data.message,data.result).then(()=>location.reload());
             }else{
@@ -176,7 +157,41 @@
       $('#modal').modal("show");
     });
   });//DocReady  
-     
+  
+  function editx(element,id, noalumni, nama, email){
+      // let id= $(this).data('id');
+      // let noalumni = $(this).data('noalumni');
+      // let nama = $(this).data('nama');
+      // let email=$(this).data('email');
+      $('#id').val(id);
+      $('#noAlumni').val(noalumni);
+      $('#nama').val(nama);
+      $('#email').val(email);
+      $('#modal').modal("show");
+    }
+    function deletex(element,id){
+    
+      // let id = element.data('id');
+      let url ="{{url('alumni/delete')}}"+"/"+id;
+      swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this record!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+          })
+          .then((willDelete) => {
+            if (willDelete) {
+              fetch(url),
+              swal("Poof! Your record has been deleted!", {
+                icon: "success",
+              }).then(()=>location.reload());
+            } else {
+              swal("Your record is safe!");
+            }
+          });
+    }
+
 </script>
 
 <script src="admin/js/dataTables.bootstrap4.min.js"></script>

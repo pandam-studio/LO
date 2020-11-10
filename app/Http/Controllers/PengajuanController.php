@@ -71,7 +71,7 @@ class PengajuanController extends Controller
                     'Id_alumni'=>$alumni->Id_alumni,
                     'Id_status'=>Status::where('Urutan',1)->first()->Id_status,
                     'Tgl_masuk'=>Carbon::now(),
-                    'Code'=> Str::random(10)
+                    'Code'=> Str::random(5)
                     ]);
 
                 $idPeng = $Pengajuan->Id_pengajuan;
@@ -118,8 +118,8 @@ class PengajuanController extends Controller
         }
     }
 
-    public function delete($id){
-        Berkas_Pengajuan::destroy($id);
+    function delete($id){
+        Pengajuan::destroy($id);
     }
 
     public function getDetail(Request $req)

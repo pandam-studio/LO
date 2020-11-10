@@ -18,8 +18,8 @@ class DatabaseSeeder extends Seeder
         User::create([
             'id_user'=>1,
             'nik'=>'220696',
-            'nama'=>'versta',
-            'email'=>'versta@ummgl.ac.id',
+            'nama'=>'admin',
+            'email'=>'admin@ummgl.ac.id',
             'password'=> Hash::make('qweasd')
         ]);
         // $this->call(UserSeeder::class);

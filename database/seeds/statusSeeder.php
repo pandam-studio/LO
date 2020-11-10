@@ -16,17 +16,13 @@ class statusSeeder extends Seeder
             'Urutan'=>1
         ]);
         Status::create([
-            'Keterangan'=>'Verifikasi Berkas',
+            'Keterangan'=>'Pengajuan Berkas Ke Dekan',
             'Urutan'=>2
         ]);
         Status::create([
-            'Keterangan'=>'Pengajuan Berkas Ke Dekan',
+            'Keterangan'=>'Berkas Siap Diambil',
             'Urutan'=>3
         ]);
-        Status::create([
-            'Keterangan'=>'Berkas Siap Diambil',
-            'Urutan'=>4
-        ]);
-
+    
     }
 }

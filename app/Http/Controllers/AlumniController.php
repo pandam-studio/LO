@@ -47,18 +47,18 @@ class AlumniController extends Controller
     function store(Request $r){
     
         if ($r->id!="") {
-            $x= User::updateOrCreate([
+            $x= Alumni::updateOrCreate([
                 'Id_alumni'=>$r->id],
                 ['No_alumni'=>$r->noAlumni,
                 'Nama'=>$r->nama,
                 'Email'=>$r->email]);
             $message = "data berhasil diperbarui!";  
         }else{
-            $x= User::create([
-                'nik'=>$r->nik,
-                'nama'=>$r->nama,
-                'email'=>$r->email,
-                'password'=>Hash::make($r->password)
+            $x= Alumni::create([
+                'Id_alumni'=>$r->id,
+                'No_alumni'=>$r->noAlumni,
+                'Nama'=>$r->nama,
+                'Email'=>$r->email
                 ]);  
             $message = "data berhasil ditambahkan!";  
         }

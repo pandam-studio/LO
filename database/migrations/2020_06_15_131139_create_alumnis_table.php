@@ -16,10 +16,10 @@ class CreateAlumnisTable extends Migration
         Schema::create('Alumni', function (Blueprint $table) {
             $table->engine = 'InnoDB';
 
-            $table->id('Id_alumni')->autoIncrement()	;
+            $table->increments('Id_alumni')	;
             $table->integer('No_alumni');
-            $table->string('Nama');
-            $table->string('Email');
+            $table->string('Nama', 40);
+            $table->string('Email', 40);
             // $table->timestamps();
         });
     }

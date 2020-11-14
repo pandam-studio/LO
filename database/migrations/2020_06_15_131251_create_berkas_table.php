@@ -16,8 +16,8 @@ class CreateBerkasTable extends Migration
         Schema::create('Berkas', function (Blueprint $table) {
             $table->engine = 'InnoDB';
 
-            $table->id('Id_berkas')->autoIncrement();
-            $table->string('Nama_berkas');
+            $table->increments('Id_berkas');
+            $table->string('Nama_berkas', 20);
             $table->integer('Harga');
             // $table->timestamps();
         });

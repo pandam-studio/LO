@@ -16,8 +16,8 @@ class CreateStatusesTable extends Migration
         Schema::create('Status', function (Blueprint $table) {
             $table->engine = 'InnoDB';
 
-            $table->id('Id_status')->autoIncrement();
-            $table->string('Keterangan');
+            $table->increments('Id_status');
+            $table->string('Keterangan', 30);
             $table->integer('Urutan');
             // $table->timestamps();
         });

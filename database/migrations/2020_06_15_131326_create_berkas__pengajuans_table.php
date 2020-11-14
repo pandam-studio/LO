@@ -16,12 +16,12 @@ class CreateBerkasPengajuansTable extends Migration
         Schema::create('Berkas_pengajuan', function (Blueprint $table) {
             $table->engine = 'InnoDB';
 
-            $table->id('Id_berkaspengajuan')->autoIncrement();
-            $table->unsignedBigInteger('Id_pengajuan');
+            $table->increments('Id_berkaspengajuan');
+            $table->unsignedInteger('Id_pengajuan');
             $table->foreign('Id_pengajuan')->references('Id_pengajuan')->on('Pengajuan')->onDelete('cascade')->onUpdate('cascade');
-            $table->unsignedBigInteger('Id_berkas');
+            $table->unsignedInteger('Id_berkas');
             $table->foreign('Id_berkas')->references('Id_berkas')->on('Berkas')->onDelete('cascade')->onUpdate('cascade');
-            $table->string('Nama_berkas');
+            $table->string('Nama_berkas', 20);
             $table->integer('Jumlah_berkas');
             $table->integer('Harga'); 
             $table->integer('Harga_total');

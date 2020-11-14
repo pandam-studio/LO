@@ -16,14 +16,14 @@ class CreatePengajuansTable extends Migration
         Schema::create('Pengajuan', function (Blueprint $table) {
             $table->engine = 'InnoDB';
 
-            $table->id('Id_pengajuan')->autoIncrement();
-            $table->unsignedBigInteger('Id_alumni');
+            $table->increments('Id_pengajuan');
+            $table->unsignedInteger('Id_alumni');
             $table->foreign('Id_alumni')->references('Id_alumni')->on('Alumni')->onDelete('cascade')->onUpdate('cascade');
-            $table->unsignedBigInteger('Id_status');
+            $table->unsignedInteger('Id_status');
             $table->foreign('Id_status')->references('Id_status')->on('Status')->onDelete('cascade')->onUpdate('cascade');
             $table->date('Tgl_masuk')->nullable();
             $table->date('Tgl_keluar')->nullable();
-            $table->string('Code')->unique();
+            $table->string('Code', 5)->unique();
 
             // $table->timestamps();
         });

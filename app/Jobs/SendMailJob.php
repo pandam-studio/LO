@@ -9,6 +9,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use App\Mail\LOEmail;
 use App\Mail\PickupNotify;
+use App\Mail\Diambil;
 use Illuminate\Support\Facades\Mail;
 use App\Alumni;
 use App\Status;
@@ -45,13 +46,15 @@ class SendMailJob implements ShouldQueue
         $status = Status::find($idStatus);
         $alumni= Alumni::where('Id_alumni',$id)->first();
         $keterangan= $status->Keterangan;
-        if($status->Urutan==1){
+        if($status->Urutan==1||$status->Urutan==2){
             Mail::to($alumni->Email)->
             send(new LOEmail($alumni->Nama,$code,$keterangan));
+        }else if($idStatus==9){
+            Mail::to($alumni->Email)->
+            send(new Diambil($alumni->Nama,$code,"berkas diambil"));
         }else{
             Mail::to($alumni->Email)->
             send(new PickupNotify($alumni->Nama,$code,$keterangan));
         }
-    
     }
 }

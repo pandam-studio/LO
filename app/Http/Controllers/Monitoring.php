@@ -17,7 +17,7 @@ class Monitoring extends Controller
     {
         $code= $r->code;
 
-        $data= DB::select('SELECT status.* FROM status RIGHT JOIN pengajuan ON status.Id_status=pengajuan.Id_status where pengajuan.code = ?', [$code]);
+        $data= DB::select('SELECT Status.*,Pengajuan.* FROM Status RIGHT JOIN Pengajuan ON Status.Id_status=Pengajuan.Id_status where Pengajuan.code = ?', [$code]);
 
         if(!empty($data)){
             return response()->json($data[0], 200);

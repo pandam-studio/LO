@@ -22,6 +22,8 @@ class CreatePengajuansTable extends Migration
             $table->unsignedInteger('Id_status');
             $table->foreign('Id_status')->references('Id_status')->on('Status')->onDelete('cascade')->onUpdate('cascade');
             $table->date('Tgl_masuk')->nullable();
+            $table->date('Tgl_dekan')->nullable();
+            $table->date('Tgl_siap_diambil')->nullable();
             $table->date('Tgl_keluar')->nullable();
             $table->string('Code', 5)->unique();
 

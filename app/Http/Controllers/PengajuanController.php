@@ -14,6 +14,8 @@ use App\Berkas;
 use App\Berkas_Pengajuan;
 use App\Alumni;
 use App\Status;
+use Exception;
+
 class PengajuanController extends Controller
 {
 
@@ -37,9 +39,9 @@ class PengajuanController extends Controller
         }else{
             $stat= 1;
             $pengajuan = pengajuan::with(['Alumni','Status'])->
-                orderBy('Id_pengajuan','desc')->paginate(10);             
+                orderBy('Id_pengajuan','desc')->paginate(10);
         }
-       
+
         $status = status::orderBy('Urutan','ASC')->get();
 
         return view('pengajuan',['pengajuan'=>$pengajuan,'status'=>$status,
@@ -95,7 +97,7 @@ class PengajuanController extends Controller
         }catch(Exception $e){
             $transaction= false;
         }
-        
+
         if($transaction){
             $idStatus = Status::where('Urutan',1)->first()->Id_status;
             $emailJob = (new SendMailJob($idAlumni,$code, $idStatus));
@@ -111,8 +113,9 @@ class PengajuanController extends Controller
     {
         $id =$r->input('id');
         $data = Berkas_Pengajuan::where('Id_pengajuan',$id)->get();
+        $pengajuan = Pengajuan::with('Alumni')->find($id);
         if($data){
-            return view('response',['data'=>$data]);
+            return view('response',['data'=>$data,'pengajuan'=>$pengajuan]);
         }else{
             return redirect()->route('home');
         }
@@ -134,8 +137,11 @@ class PengajuanController extends Controller
 
     public function ambil(Request $r){
         $idPeng = $r->idPeng;
-       
+
         if(Pengajuan::find($idPeng)->update(['Tgl_keluar' => now()])){
+            $data = Pengajuan::with("Alumni")->find($idPeng)->get();
+            $emailJob = (new SendMailJob($data->Id_alumni,$data->Code, 9));
+            dispatch($emailJob);
             return response()->json(['success'=>true], 200);
         }else{
             return response()->json([], 200);
@@ -154,7 +160,13 @@ class PengajuanController extends Controller
                 $code = $pengajuan->Code;
                 $emailJob = (new SendMailJob($idAlumni,$code,$idStatus));
                 dispatch($emailJob);
-           }
+            }
+            if($status==2){
+                DB::update('update Pengajuan set Tgl_dekan = ? where Id_pengajuan = ?', [Carbon::now(),$idPeng]);
+            }
+            if($status==3){
+                DB::update('update Pengajuan set Tgl_siap_diambil = ? where Id_pengajuan = ?', [Carbon::now(),$idPeng]);
+            }
         return response()->json(['success'=>true], 200);
        }else{
         return response()->json([], 200);

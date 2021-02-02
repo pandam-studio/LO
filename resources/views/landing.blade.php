@@ -95,7 +95,14 @@
                         if(data==""){
                             swal("Invalid Code!", "Please recheck your code!", "error");
                         }else{
-                            swal("Code Found!", "Status berkas kamu saat ini adalah ("+data.Keterangan+")", "success");
+                            swal("Code Found!",
+                            `Status berkas kamu saat ini adalah ${data.Keterangan})
+                            History :
+                            ${data.Tgl_masuk?`Tanggal masuk =${data.Tgl_masuk}`:''}
+                            ${data.Tgl_dekan?`Tanggal Dekan =${data.Tgl_dekan}`:''}
+                            ${data.Tgl_siap_diambil?`Tanggal Siap diambil =${data.Tgl_siap_diambil}`:''}
+                            ${data.Tgl_keluar?`Tanggal berkas diambil =${data.Tgl_keluar}`:''}`,
+                            "success");
                         }
                         console.log(data);
                     }

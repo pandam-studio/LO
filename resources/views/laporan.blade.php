@@ -92,7 +92,7 @@
       <div class="modal-body" id="modal-print">
       <img style="width:80px;height:80px;float:left;margin:20px 0 -130px 50px;" src="https://akupintar.id/documents/20143/0/UNIVERSITAS+MUHAMMADIYAH+MAGELANG.png/045ba160-2c81-bef2-a70a-bbc53b7eb988?version=1.0&t=1518537517784&imagePreview=1">
       <center><h5 class="text-center col-md-10" id="topheader" style="word-wrap">TATA USAHA FAKULTAS TEKNIK UNIVERSITAS MUHAMMADIYAH MAGELANG</h5></center>
-				<p class="text-center" style="font-size:18px;" id="subheader">Jl. Mayjend. Bambang Soegeng, Mertoyudan, Magelang 56172</p>
+				<p class="text-center" style="font-size:18px" id="subheader">Jl. Mayjend. Bambang Soegeng, Mertoyudan, Magelang 56172</p>
         <br>
           <hr style="border:3px double #dedede;margin-top:30px">
 				<p class="font-weight-bold text-center"><em>LAPORAN LAGALISIR PERIODE,</em><br><span class="nomor" id="nomor"></span></p>
@@ -110,7 +110,7 @@
                   <th>sub Total</th>
               </tr>
             </thead>
-            <tbody id='table-body'>           
+            <tbody id='table-body'>
             </tbody>
           </table>
           <table class="table table bordered" style="width:100%;table-layout:fixed;">
@@ -128,7 +128,7 @@
       </div>
     </div>
   </div>
-</div>  
+</div>
 
 @endsection
 @section('script')
@@ -170,7 +170,7 @@
               tableBody+='<td>'+subtotal+'</td>';
             tableBody+='</tr>';
           }
-         
+
           $('#table-body').html(tableBody);
           $('#myModal').modal("show");
         }

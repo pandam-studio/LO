@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 Auth::routes();
 
-Route::get('/', 'Monitoring@index');
+Route::get('/', 'Monitoring@index')->name('base');
 
 Route::get('/home', 'HomeController@index');
 Route::get('/laporan', 'PengajuanController@laporan');

@@ -24,7 +24,7 @@
     <div class="all-wrapper menu-side with-pattern">
       <div class="auth-box-w">
         <div class="logo-w">
-          <img width="270px" alt="" src="https://ummgl.ac.id/wp-content/uploads/2017/10/logo-ummagelang-1.png">
+          <img width="200px" alt="" src="landing/assets/img/logo.jpg">
         </div>
         <h4 class="auth-header">
           Login Form

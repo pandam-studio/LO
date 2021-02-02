@@ -97,10 +97,10 @@
         -------------------->
         <div class="menu-w color-scheme-light color-style-transparent menu-position-side menu-side-left menu-layout-compact sub-menu-style-over sub-menu-color-bright selected-menu-color-light menu-activated-on-hover menu-has-selected-link">
           <div class="logo-w">
-            <a class="logo" href="index.html">
+            <a class="logo" href="home">
               <div class="logo-element"></div>
               <div class="logo-label">
-                Teknik UMMgl
+                Teknik Unimma
               </div>
             </a>
           </div>

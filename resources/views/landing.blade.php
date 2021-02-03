@@ -98,10 +98,10 @@
                             swal("Code Found!",
                             `Status berkas kamu saat ini adalah ${data.Keterangan})
                             History :
-                            ${data.Tgl_masuk?`Tanggal masuk =${data.Tgl_masuk}`:''}
-                            ${data.Tgl_dekan?`Tanggal Dekan =${data.Tgl_dekan}`:''}
-                            ${data.Tgl_siap_diambil?`Tanggal Siap diambil =${data.Tgl_siap_diambil}`:''}
-                            ${data.Tgl_keluar?`Tanggal berkas diambil =${data.Tgl_keluar}`:''}`,
+                            ${data.Tgl_masuk?`Berkas Diterima di TU =${data.Tgl_masuk}`:''}
+                            ${data.Tgl_dekan?`Pengajuan Berkas ke Dekan =${data.Tgl_dekan}`:''}
+                            ${data.Tgl_siap_diambil?`Berkas Siap Diambil =${data.Tgl_siap_diambil}`:''}
+                            ${data.Tgl_keluar?`Tanggal Berkas Diambil =${data.Tgl_keluar}`:''}`,
                             "success");
                         }
                         console.log(data);

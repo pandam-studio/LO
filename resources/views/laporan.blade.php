@@ -116,6 +116,7 @@
           <table class="table table bordered" style="width:100%;table-layout:fixed;">
             <tbody><tr>
                 <td class="border-0"></td>
+                <td class="border-0 text-left">Total :</td>
                 <td class="border-0 text-right"><span id="daerah"></span>, <span class="font-weight-bold tanggal" id="tanggal"></span><br>Magelang, {{ date('d-F-Y',time())}} <br>Petugas TU<br><br><br>{{Auth::user()->nama}}<br>NIK. {{Auth::user()->nik}}<span class="nik" id="nik"></span></td>
               </tr>
             </tbody>

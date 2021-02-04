@@ -1,5 +1,7 @@
 <p>Halo {{$nama}}, <strong>Segera ambil</strong> berkas legalisir kamu dengan kode 
-    <strong>{{$code}}</strong>, jika lebih dari 30 hari pihak TU tidak bertanggung jawab atas kehilangan berkasmu, terima kasih.</p>
+    <strong>{{$code}}</strong>,
+    
+<p>jika lebih dari 30 hari pihak TU tidak bertanggung jawab atas kehilangan berkasmu, terima kasih.</p></p>
 
 <p>Fakultas Teknik<br>
 Universitas Muhammadiyah Magelang<br>

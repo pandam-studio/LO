@@ -153,7 +153,7 @@
           const months = ["Januari", "Februari", "Maret","April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
           let formatFrom = new Date(from);
           let formatTo = new Date(to);
-          $('#nomor').html('LAPORAN LEGALISIR PERIODE '+ formatFrom.getDate()+'-'+months[formatFrom.getMonth()] +'-'+ formatFrom.getFullYear() +' sampai ' + formatTo.getDate()+'-'+months[formatTo.getMonth()] +'-'+ formatTo.getFullYear() );
+          $('#nomor').html(''+ formatFrom.getDate()+'-'+months[formatFrom.getMonth()] +'-'+ formatFrom.getFullYear() +' sampai ' + formatTo.getDate()+'-'+months[formatTo.getMonth()] +'-'+ formatTo.getFullYear() );
           // $('#subheader').html((response.type_unit_kerja.nama+" UMUM Daerah " +response.unit_kerja.daerah).toUpperCase());
           for(i in response.data.pengajuan ){
             let subtotal = 0;

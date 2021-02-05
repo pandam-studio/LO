@@ -45,13 +45,13 @@ class SendMailJob implements ShouldQueue
         $idStatus = $this->idStatus;
         $status = Status::find($idStatus);
         $alumni= Alumni::where('Id_alumni',$id)->first();
-        $keterangan= $status->Keterangan;
-        if($status->Urutan==1||$status->Urutan==2){
+        $keterangan = $status->Keterangan??'';
+        if($idStatus==1||$idStatus==2){
             Mail::to($alumni->Email)->
             send(new LOEmail($alumni->Nama,$code,$keterangan));
         }else if($idStatus==9){
             Mail::to($alumni->Email)->
-            send(new Diambil($alumni->Nama,$code,"berkas diambil"));
+            send(new Diambil($alumni->Nama,$code,'berkas diambil'));
         }else{
             Mail::to($alumni->Email)->
             send(new PickupNotify($alumni->Nama,$code,$keterangan));

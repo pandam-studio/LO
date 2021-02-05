@@ -128,10 +128,10 @@ class PengajuanController extends Controller
     public function getDetail(Request $req)
     {
         $idPeng = $req->Id_pengajuan;
-        $data= DB::select("SELECT pengajuan.*,berkas_pengajuan.*,berkas.Nama_berkas FROM pengajuan LEFT JOIN
-                berkas_pengajuan ON pengajuan.Id_pengajuan=berkas_pengajuan.Id_pengajuan
-                LEFT JOIN berkas on berkas_pengajuan.Id_berkas= berkas.Id_berkas
-                WHERE pengajuan.Id_pengajuan=$idPeng");
+        $data= DB::select("SELECT Pengajuan.*,Berkas_pengajuan.*,Berkas.Nama_berkas FROM Pengajuan LEFT JOIN
+                Berkas_pengajuan ON Pengajuan.Id_pengajuan=Berkas_pengajuan.Id_pengajuan
+                LEFT JOIN Berkas on Berkas_pengajuan.Id_berkas= Berkas.Id_berkas
+                WHERE Pengajuan.Id_pengajuan=$idPeng");
             return response()->json($data, 200);
     }
 
@@ -139,7 +139,7 @@ class PengajuanController extends Controller
         $idPeng = $r->idPeng;
 
         if(Pengajuan::find($idPeng)->update(['Tgl_keluar' => now()])){
-            $data = Pengajuan::with("Alumni")->find($idPeng)->get();
+            $data = Pengajuan::with("Alumni")->find($idPeng)->first();
             $emailJob = (new SendMailJob($data->Id_alumni,$data->Code, 9));
             dispatch($emailJob);
             return response()->json(['success'=>true], 200);
@@ -162,6 +162,11 @@ class PengajuanController extends Controller
                 dispatch($emailJob);
             }
             if($status==2){
+                $pengajuan= Pengajuan::where('Id_pengajuan',$idPeng)->first();
+                $idAlumni = $pengajuan->Id_alumni;
+                $code = $pengajuan->Code;
+                $emailJob = (new SendMailJob($idAlumni,$code,$status));
+                dispatch($emailJob);
                 DB::update('update Pengajuan set Tgl_dekan = ? where Id_pengajuan = ?', [Carbon::now(),$idPeng]);
             }
             if($status==3){

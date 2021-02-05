@@ -81,6 +81,7 @@
     </div>
   </div>
 @endsection
+</div>
 @section('script')
             <Script>
                 function set(){

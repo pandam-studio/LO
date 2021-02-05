@@ -154,6 +154,7 @@
         </div>
     </div>
 @endsection
+</div>
 @section('script')
 <script>
     $('.danger').click(function (e) {

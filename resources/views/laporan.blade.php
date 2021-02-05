@@ -143,6 +143,7 @@
       let no =0;
       let tableBody='';
       let alamat ='';
+      let total = 0;
       $.ajax({
         type: "GET",
         url: "{{route('downloadPDF')}}",
@@ -160,6 +161,7 @@
             for(j in response.data.pengajuan[i].berkas__pengajuan ){
               subtotal += response.data.pengajuan[i].berkas__pengajuan[j].Harga_total
             }
+            total += subtotal;
             tableBody+='<tr>';
               tableBody+='<td>'+(no+=1)+'</td>';
               tableBody+='<td>'+response.data.pengajuan[i].Code+'</td>';
@@ -170,7 +172,7 @@
               tableBody+='<td>'+subtotal+'</td>';
             tableBody+='</tr>';
           }
-
+          tableBody += `<tr><td colspan="6">Total</td><td>${total}</td></tr>`
           $('#table-body').html(tableBody);
           $('#myModal').modal("show");
         }

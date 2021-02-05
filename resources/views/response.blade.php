@@ -59,7 +59,7 @@
           <table class="table table-bordered "  width="100%" cellspacing="0">
             <tbody id='table-body' class="text-center">
             <tr>
-            <td colspan="2">Tanda Terima legalisir unimma</td>
+            <td colspan="2">Tanda Terima Legalisir Unimma</td>
             </tr>
             <tr>
             <td colspan="2">{{$pengajuan->Tgl_masuk}}</td>

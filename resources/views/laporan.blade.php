@@ -116,6 +116,7 @@
           <table class="table table bordered" style="width:100%;table-layout:fixed;">
             <tbody><tr>
                 <td class="border-0"></td>
+                <td class="border-0 text-left">Total :</td>
                 <td class="border-0 text-right"><span id="daerah"></span>, <span class="font-weight-bold tanggal" id="tanggal"></span><br>Magelang, {{ date('d-F-Y',time())}} <br>Petugas TU<br><br><br>{{Auth::user()->nama}}<br>NIK. {{Auth::user()->nik}}<span class="nik" id="nik"></span></td>
               </tr>
             </tbody>
@@ -154,7 +155,7 @@
           const months = ["Januari", "Februari", "Maret","April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
           let formatFrom = new Date(from);
           let formatTo = new Date(to);
-          $('#nomor').html('LAPORAN LEGALISIR PERIODE '+ formatFrom.getDate()+'-'+months[formatFrom.getMonth()] +'-'+ formatFrom.getFullYear() +' sampai ' + formatTo.getDate()+'-'+months[formatTo.getMonth()] +'-'+ formatTo.getFullYear() );
+          $('#nomor').html(''+ formatFrom.getDate()+'-'+months[formatFrom.getMonth()] +'-'+ formatFrom.getFullYear() +' sampai ' + formatTo.getDate()+'-'+months[formatTo.getMonth()] +'-'+ formatTo.getFullYear() );
           // $('#subheader').html((response.type_unit_kerja.nama+" UMUM Daerah " +response.unit_kerja.daerah).toUpperCase());
           for(i in response.data.pengajuan ){
             let subtotal = 0;
